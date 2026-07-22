@@ -1,0 +1,64 @@
+<section id="why" class="workers">
+  <div class="workers__inner">
+    <h2 class="workers__title anim-rise" style="animation-range: entry 0% entry 80%">
+      Made for the people who make your day
+    </h2>
+    <p class="workers__desc anim-rise" style="animation-range: entry 0% entry 100%">
+      Baristas, valets, drivers, housekeepers, creators — and everyone who wants to thank them properly.
+    </p>
+    <img
+      src="/assets/workers.png"
+      alt="Service workers receiving gratitude"
+      class="workers__img anim-reveal"
+      loading="lazy"
+    />
+  </div>
+</section>
+
+<style>
+  .workers {
+    background: #fff;
+    padding: 96px 28px 80px;
+    margin-top: -8px;
+  }
+  .workers__inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .workers__title {
+    margin: 0;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--tippal-accent);
+  }
+  .workers__desc {
+    margin: 0 auto;
+    max-width: 56ch;
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: var(--tippal-text-secondary);
+    text-wrap: pretty;
+  }
+  .workers__img {
+    width: 100%;
+    max-width: 890px;
+    margin: 26px auto 0;
+    display: block;
+  }
+
+  /* Scroll animations */
+  .anim-rise {
+    animation: kf-rise linear both;
+    animation-timeline: view();
+  }
+  .anim-reveal {
+    animation: kf-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 45%;
+  }
+</style>

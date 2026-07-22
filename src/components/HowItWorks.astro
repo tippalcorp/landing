@@ -1,0 +1,157 @@
+---
+const steps = [
+  {
+    num: "01",
+    title: "Add your card",
+    body: "Tips go straight from your card — or from your balance once you receive tips. Nothing to pre-load.",
+    chipBg: "var(--tippal-success-light)",
+    chipFg: "var(--tippal-success-dark)",
+    range: "entry 0% cover 25%",
+  },
+  {
+    num: "02",
+    title: "Send gratitude",
+    body: "Pick a person, choose an amount, add a personal note. Tap send.",
+    chipBg: "var(--tippal-heart-soft)",
+    chipFg: "var(--tippal-heart)",
+    range: "entry 0% cover 32%",
+  },
+  {
+    num: "03",
+    title: "They get it instantly",
+    body: "Their balance grows with every tip received — they cash out whenever they like.",
+    chipBg: "var(--tippal-primary-light)",
+    chipFg: "var(--tippal-primary)",
+    range: "entry 0% cover 40%",
+  },
+];
+---
+
+<section id="how" class="how">
+  <div class="how__inner">
+    <header class="how__header anim-rise" style="animation-range: entry 0% entry 90%">
+      <h2 class="how__title">Three taps to thank you</h2>
+      <p class="how__sub">No terminals, no awkward screens. Just people.</p>
+    </header>
+    <div class="how__cards">
+      {steps.map((step, i) => (
+        <div
+          class="how__card"
+          style={`animation-range: ${step.range}`}
+        >
+          <div class="how__card-top">
+            <span class="how__chip" style={`background:${step.chipBg};color:${step.chipFg}`}>
+              {i === 0 && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 7.5h18M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm2 9h5" />
+                </svg>
+              )}
+              {i === 1 && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                  <path d="M12 21s-7.5-4.6-10-9.1C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.3 2.3l2 2.7 2-2.7C15 6.1 16.3 5 18.3 5c3.4 0 5.3 3.6 3.7 6.9C19.5 16.4 12 21 12 21z" />
+                </svg>
+              )}
+              {i === 2 && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 20V8m0 0 5 5m-5-5-5 5" />
+                </svg>
+              )}
+            </span>
+            <span class="how__num">{step.num}</span>
+          </div>
+          <div class="how__card-title">{step.title}</div>
+          <div class="how__card-body">{step.body}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    padding: 104px 28px;
+  }
+  .how__inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .how__header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .how__title {
+    margin: 0;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--tippal-accent);
+  }
+  .how__sub {
+    margin: 0 auto;
+    max-width: 50ch;
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: var(--tippal-text-secondary);
+  }
+  .how__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .how__card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 26px;
+    box-shadow: var(--tippal-shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: kf-rise linear both;
+    animation-timeline: view();
+    transition: transform 250ms var(--tippal-ease-joy), box-shadow 250ms;
+  }
+  .how__card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--tippal-shadow-float);
+  }
+  .how__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .how__chip {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .how__num {
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--tippal-secondary-light);
+  }
+  .how__card-title {
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--tippal-accent);
+  }
+  .how__card-body {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--tippal-text-secondary);
+  }
+
+  /* Scroll animation */
+  .anim-rise {
+    animation: kf-rise linear both;
+    animation-timeline: view();
+  }
+</style>

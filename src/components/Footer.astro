@@ -1,0 +1,57 @@
+---
+import HeartIcon from "./HeartIcon.astro";
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+    <img src="/assets/logo.png" alt="TipPal" height="38" class="footer__logo" />
+    <div class="footer__links">
+      <a href="#top">Privacy</a>
+      <a href="#top">Terms</a>
+      <a href="#top">Contact</a>
+    </div>
+    <div class="footer__made">
+      Made with
+      <HeartIcon size={14} color="var(--tippal-heart)" />
+      gratitude
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #fff;
+    border-top: 1px solid var(--tippal-border-light);
+    padding: 36px 28px;
+  }
+  .footer__inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .footer__logo {
+    height: 38px;
+    display: block;
+  }
+  .footer__links {
+    display: flex;
+    gap: 24px;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .footer__links a {
+    color: var(--tippal-text-tertiary);
+  }
+  .footer__made {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--tippal-text-tertiary);
+  }
+</style>

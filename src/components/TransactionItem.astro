@@ -1,0 +1,91 @@
+---
+export interface Props {
+  type: "tip_sent" | "tip_received";
+  amount: string;
+  name: string;
+  note: string;
+  date: string;
+  isLast?: boolean;
+}
+
+const { type, amount, name, note, date, isLast = false } = Astro.props;
+const isSent = type === "tip_sent";
+
+const chipBg = isSent ? "var(--tippal-heart-soft)" : "var(--tippal-success-light)";
+const chipFg = isSent ? "var(--tippal-heart)" : "var(--tippal-success-dark)";
+const amountColor = isSent ? "var(--tippal-accent)" : "var(--tippal-success-dark)";
+---
+
+<div class={`tx-item${isLast ? " tx-item--last" : ""}`}>
+  <span class="tx-item__chip" style={`background:${chipBg};color:${chipFg}`}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      {isSent ? (
+        <path d="M7 17 17 7M7 7h10v10" />
+      ) : (
+        <path d="M17 7 7 17M17 17H7V7" />
+      )}
+    </svg>
+  </span>
+  <span class="tx-item__mid">
+    <span class="tx-item__name">{name}</span>
+    <span class="tx-item__note">{note}</span>
+  </span>
+  <span class="tx-item__right">
+    <span class="tx-item__amount" style={`color:${amountColor}`}>{amount}</span>
+    <span class="tx-item__date">{date}</span>
+  </span>
+</div>
+
+<style>
+  .tx-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 66px;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--tippal-border-light);
+  }
+  .tx-item--last {
+    border-bottom: none;
+  }
+  .tx-item__chip {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .tx-item__mid {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tx-item__name {
+    font-weight: 800;
+    font-size: 14.5px;
+    color: var(--tippal-accent);
+  }
+  .tx-item__note {
+    font-size: 13px;
+    color: var(--tippal-text-tertiary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tx-item__right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .tx-item__amount {
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .tx-item__date {
+    font-size: 11.5px;
+    color: var(--tippal-text-tertiary);
+  }
+</style>

@@ -1,0 +1,114 @@
+/* ── Design Tokens ── */
+:root {
+  /* Color */
+  --tippal-background: #f3e8ff;
+  --tippal-text: #241b35;
+  --tippal-text-secondary: #5a4a75;
+  --tippal-text-tertiary: #8a7ba3;
+  --tippal-primary: #007fff;
+  --tippal-primary-dark: #0063c7;
+  --tippal-primary-light: #dceeff;
+  --tippal-secondary: #8a2be2;
+  --tippal-secondary-light: #d9b8ff;
+  --tippal-tertiary: #fff52d;
+  --tippal-accent: #30006a;
+  --tippal-border-light: #f5f0e5;
+  --tippal-heart: #ff7a59;
+  --tippal-heart-soft: #ffe9e2;
+  --tippal-smile: #ffd34d;
+  --tippal-calm: #7fb8ff;
+  --tippal-success-light: #dcf5db;
+  --tippal-success-dark: #1d7a1a;
+
+  /* Typography */
+  --tippal-font-family: "Plus Jakarta Sans", sans-serif;
+  --tippal-font-display: "Fredoka", sans-serif;
+
+  /* Elevation */
+  --tippal-shadow-rest: 0 2px 8px rgba(48, 0, 106, 0.08);
+  --tippal-shadow-card: 0 8px 24px -6px rgba(48, 0, 106, 0.12);
+  --tippal-shadow-float: 0 16px 40px -12px rgba(48, 0, 106, 0.25);
+
+  /* Motion */
+  --tippal-ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --tippal-ease-joy: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --tippal-dur-celebrate: 900ms;
+}
+
+/* ── Keyframes ── */
+@keyframes kf-hero-in {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes kf-rise {
+  from { opacity: 0; transform: translateY(64px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes kf-pop {
+  from { opacity: 0; transform: scale(0.7) rotate(-4deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes kf-left {
+  from { opacity: 0; transform: translateX(-70px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes kf-right {
+  from { opacity: 0; transform: translateX(70px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes kf-exit {
+  to { opacity: 0; transform: translateY(-70px) scale(0.96); }
+}
+@keyframes kf-reveal {
+  from { opacity: 0; transform: scale(1.12); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes kf-grow {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes kf-phone {
+  from { opacity: 0; transform: translateY(90px) rotate(4deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes kf-marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* From the design system — celebration */
+@keyframes tippal-pop {
+  0%   { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  70%  { opacity: 1; transform: translateX(-50%) scale(1.08); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+@keyframes tippal-heart-float {
+  0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-70px) scale(1.1); }
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--tippal-background);
+  font-family: var(--tippal-font-family);
+  color: var(--tippal-text);
+}
+a {
+  color: var(--tippal-primary);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--tippal-primary-dark);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

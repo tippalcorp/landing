@@ -1,0 +1,48 @@
+---
+export interface Props {
+  balance: string;
+  caption?: string;
+  actionLabel?: string;
+}
+
+const { balance, caption = "Tips received", actionLabel = "Withdraw" } = Astro.props;
+---
+
+<div class="balance-card">
+  <span class="balance-card__caption">{caption}</span>
+  <span class="balance-card__balance">{balance}</span>
+  <span class="balance-card__action">{actionLabel}</span>
+</div>
+
+<style>
+  .balance-card {
+    position: relative;
+    background: linear-gradient(135deg, var(--tippal-secondary), var(--tippal-accent));
+    border-radius: 24px;
+    padding: 22px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .balance-card__caption {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .balance-card__balance {
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: 40px;
+    margin-top: 8px;
+  }
+  .balance-card__action {
+    align-self: flex-end;
+    background: #fff;
+    color: var(--tippal-accent);
+    font-weight: 800;
+    font-size: 13.5px;
+    border-radius: 9999px;
+    padding: 9px 18px;
+    margin-top: 8px;
+  }
+</style>

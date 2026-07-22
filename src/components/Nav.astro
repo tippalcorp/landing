@@ -1,0 +1,75 @@
+---
+import HeartIcon from "./HeartIcon.astro";
+---
+
+<nav class="nav">
+  <a href="#top" class="nav__logo">
+    <img src="/assets/logo.png" alt="TipPal" height="44" />
+  </a>
+  <div class="nav__links">
+    <a href="#how" class="nav__link">How it works</a>
+    <a href="#why" class="nav__link">Why Tippal</a>
+    <a href="#get" class="nav__cta">Get the app</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 28px;
+    background: rgba(243, 232, 255, 0.82);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--tippal-border-light);
+  }
+  .nav__logo {
+    display: flex;
+    align-items: center;
+  }
+  .nav__logo img {
+    height: 44px;
+    display: block;
+  }
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-weight: 700;
+    font-size: 14.5px;
+  }
+  .nav__link {
+    color: var(--tippal-accent);
+  }
+  .nav__link:hover {
+    color: var(--tippal-primary);
+  }
+  .nav__cta {
+    background: var(--tippal-primary);
+    color: #fff;
+    border-radius: 9999px;
+    height: 44px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    font-size: 14.5px;
+    font-weight: 700;
+    box-shadow: var(--tippal-shadow-rest);
+    transition: transform 150ms var(--tippal-ease-joy);
+  }
+  .nav__cta:hover {
+    background: var(--tippal-primary-dark);
+    color: #fff;
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 480px) {
+    .nav__link {
+      display: none;
+    }
+  }
+</style>

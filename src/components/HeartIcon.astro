@@ -1,0 +1,18 @@
+---
+export interface Props {
+  size?: number;
+  color?: string;
+}
+
+const { size = 24, color = "var(--tippal-heart)" } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={color}
+  aria-hidden="true"
+>
+  <path d="M12 21s-7.5-4.6-10-9.1C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.3 2.3l2 2.7 2-2.7C15 6.1 16.3 5 18.3 5c3.4 0 5.3 3.6 3.7 6.9C19.5 16.4 12 21 12 21z" />
+</svg>

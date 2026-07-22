@@ -1,0 +1,27 @@
+---
+export interface Props {
+  variant?: "readable" | "medium";
+}
+
+const { variant = "readable" } = Astro.props;
+const bg = variant === "readable"
+  ? "rgba(255, 255, 255, 0.88)"
+  : "rgba(255, 255, 255, 0.6)";
+---
+
+<div
+  class="glass-card"
+  style={`background:${bg}`}
+>
+  <slot />
+</div>
+
+<style>
+  .glass-card {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: var(--tippal-shadow-card);
+  }
+</style>

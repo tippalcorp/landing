@@ -1,0 +1,65 @@
+---
+import StoreButton from "./StoreButton.astro";
+---
+
+<section id="get" class="manifesto">
+  <div class="manifesto__inner">
+    <h2 class="manifesto__title anim-grow">Together, we stop Tipflation.</h2>
+    <p class="manifesto__desc anim-rise" style="animation-range: entry 0% cover 30%">
+      Tipping shouldn't feel like a toll at every checkout. Tippal takes the pressure out and puts the gratitude back — a tip is a gift, not a fee.
+    </p>
+    <div class="manifesto__stores anim-rise" style="animation-range: entry 0% cover 35%">
+      <StoreButton store="apple" href="#top" size="lg" />
+      <StoreButton store="google" href="#top" size="lg" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    padding: 120px 28px 96px;
+    text-align: center;
+  }
+  .manifesto__inner {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+  .manifesto__title {
+    margin: 0;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.1;
+    color: var(--tippal-accent);
+  }
+  .manifesto__desc {
+    margin: 0;
+    max-width: 54ch;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--tippal-text-secondary);
+    text-wrap: pretty;
+  }
+  .manifesto__stores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 8px;
+  }
+
+  /* Scroll animations */
+  .anim-grow {
+    animation: kf-grow linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 90%;
+  }
+  .anim-rise {
+    animation: kf-rise linear both;
+    animation-timeline: view();
+  }
+</style>

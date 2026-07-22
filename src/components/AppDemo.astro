@@ -1,0 +1,183 @@
+---
+import GlassCard from "./GlassCard.astro";
+import BalanceCard from "./BalanceCard.astro";
+import TransactionItem from "./TransactionItem.astro";
+---
+
+<section class="demo">
+  <!-- Decorative circles -->
+  <div class="demo__circle demo__circle--1"></div>
+  <div class="demo__circle demo__circle--2"></div>
+
+  <div class="demo__grid">
+    <!-- Left column -->
+    <div class="demo__left anim-left">
+      <h2 class="demo__title">Made for thank-yous</h2>
+
+      <GlassCard variant="readable">
+        <div class="demo__feature">
+          <span class="demo__feature-chip" style="background:var(--tippal-heart-soft);color:var(--tippal-heart)">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6.5 8.5a8 8 0 0 1 0 7" />
+              <path d="M10.5 6.5a11 11 0 0 1 0 11" />
+              <path d="M14.5 4.5a14.5 14.5 0 0 1 0 15" />
+            </svg>
+          </span>
+          <div>
+            <div class="demo__feature-title">Tap to tip, in person</div>
+            <div class="demo__feature-desc">Tap your phone to theirs and the tip is on its way. No QR codes, no usernames.</div>
+          </div>
+        </div>
+      </GlassCard>
+
+      <GlassCard variant="readable">
+        <div class="demo__feature">
+          <span class="demo__feature-chip" style="background:var(--tippal-primary-light);color:var(--tippal-primary)">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="3" />
+              <path d="m3.5 7 8.5 6 8.5-6" />
+            </svg>
+          </span>
+          <div>
+            <div class="demo__feature-title">Just an email to join</div>
+            <div class="demo__feature-desc">Sign up with your email and start receiving tips right away. No forms, no waiting.</div>
+          </div>
+        </div>
+      </GlassCard>
+    </div>
+
+    <!-- Right column: phone mockup -->
+    <div class="demo__right anim-phone">
+      <div class="demo__phone">
+        <!-- Notch -->
+        <div class="demo__notch"><span></span></div>
+        <!-- Balance card -->
+        <BalanceCard balance="$128.50" />
+        <!-- Recent activity -->
+        <div class="demo__activity">
+          <div class="demo__activity-label">Recent activity</div>
+          <TransactionItem type="tip_sent" amount="$5.00" name="Maya R." note="Best latte in town" date="Today, 2:14 PM" />
+          <TransactionItem type="tip_received" amount="+$12.00" name="Carlos R." note="Thanks for the ride" date="Today, 11:02 AM" />
+          <TransactionItem type="tip_received" amount="+$8.00" name="Ana P." note="Room was spotless" date="Yesterday" isLast />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .demo {
+    background: linear-gradient(135deg, var(--tippal-secondary), var(--tippal-accent) 80%);
+    position: relative;
+    overflow: hidden;
+    padding: 104px 28px;
+  }
+  .demo__circle {
+    position: absolute;
+    border-radius: 50%;
+  }
+  .demo__circle--1 {
+    top: -90px;
+    right: -60px;
+    width: 320px;
+    height: 320px;
+    background: rgba(255, 255, 255, 0.07);
+  }
+  .demo__circle--2 {
+    bottom: -120px;
+    left: -80px;
+    width: 380px;
+    height: 380px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .demo__grid {
+    max-width: 1140px;
+    margin: 0 auto;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 64px;
+    align-items: center;
+  }
+  .demo__left {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .demo__title {
+    margin: 0;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 48px);
+    color: #fff;
+  }
+  .demo__feature {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .demo__feature-chip {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .demo__feature-title {
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--tippal-accent);
+  }
+  .demo__feature-desc {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--tippal-text-secondary);
+    margin-top: 3px;
+  }
+  .demo__right {
+    display: flex;
+    justify-content: center;
+  }
+  .demo__phone {
+    width: min(380px, 88vw);
+    background: #fff;
+    border-radius: 38px;
+    padding: 18px;
+    box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.5);
+  }
+  .demo__notch {
+    display: flex;
+    justify-content: center;
+    padding: 4px 0 14px;
+  }
+  .demo__notch span {
+    width: 110px;
+    height: 6px;
+    border-radius: 9999px;
+    background: var(--tippal-border-light);
+  }
+  .demo__activity {
+    padding: 20px 6px 6px;
+  }
+  .demo__activity-label {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: var(--tippal-text-tertiary);
+    padding: 0 10px 6px;
+  }
+
+  /* Scroll animations */
+  .anim-left {
+    animation: kf-left linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 35%;
+  }
+  .anim-phone {
+    animation: kf-phone linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import HeartIcon from "./HeartIcon.astro";
+
+const roles = ["Baristas", "Valets", "Drivers", "Housekeepers", "Creators", "Servers", "Movers", "Guides"];
+// Render twice for seamless -50% loop
+const items = [...roles, ...roles];
+---
+
+<div class="marquee">
+  <div class="marquee__track">
+    {items.map((role, i) => (
+      <span class="marquee__item">
+        {role}
+        <HeartIcon size={14} color="var(--tippal-heart)" />
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    background: var(--tippal-tertiary);
+    padding: 16px 0;
+    overflow: hidden;
+    transform: rotate(-1.2deg);
+    margin: 8px -12px;
+    box-shadow: var(--tippal-shadow-rest);
+  }
+  .marquee__track {
+    display: flex;
+    gap: 34px;
+    width: max-content;
+    animation: kf-marquee 26s linear infinite;
+  }
+  .marquee__item {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    font-family: var(--tippal-font-display);
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--tippal-accent);
+    white-space: nowrap;
+  }
+</style>
