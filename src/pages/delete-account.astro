@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <div class="legal">
+    <!-- Minimal header -->
+    <header class="legal__head">
+      <a href="/" class="legal__logo">
+        <img src="/assets/logo.png" alt="TipPal" height="42" />
+      </a>
+    </header>
+
+    <!-- Document header -->
+    <div class="legal__doc-header">
+      <h1>Delete your TipPal account</h1>
+      <p><strong>TipPal Corp</strong></p>
+      <p><strong>Last updated:</strong> July 23, 2026</p>
+    </div>
+
+    <!-- Intro -->
+    <section>
+      <p>This page explains how to request the deletion of your TipPal account and the personal data associated with it. TipPal is operated by TipPal Corp.</p>
+    </section>
+
+    <!-- Before you start -->
+    <section>
+      <h3>Before you start</h3>
+      <ul>
+        <li>Withdraw any remaining balance from your TipPal wallet. Once your account is deleted we cannot process pending withdrawals.</li>
+        <li>Deletion requests must be sent from the email address registered to the account.</li>
+      </ul>
+    </section>
+
+    <!-- How to request deletion -->
+    <section>
+      <h3>How to request deletion</h3>
+      <ol>
+        <li>Send an email to <a href="mailto:tippalcorp@gmail.com">tippalcorp@gmail.com</a> from the email address registered in your TipPal account.</li>
+        <li>Use the subject line: <strong>&ldquo;Delete my account&rdquo;</strong>.</li>
+        <li>Include your TipPal username or TipPal ID in the message body.</li>
+      </ol>
+      <p>We will confirm receipt and process your request within 30 days.</p>
+    </section>
+
+    <!-- Data deleted -->
+    <section>
+      <h3>Data that is deleted</h3>
+      <p>When your account is deleted, the following personal data is permanently removed:</p>
+      <ul>
+        <li>Profile information: name, username, phone number, profile photo</li>
+        <li>Email address and login credentials</li>
+        <li>Device identifiers and push notification tokens</li>
+        <li>Saved payment methods and cashout destinations</li>
+        <li>Collect PIN</li>
+      </ul>
+    </section>
+
+    <!-- Data retained -->
+    <section>
+      <h3>Data that is retained</h3>
+      <p>Certain data must be retained even after account deletion to comply with legal obligations:</p>
+      <ul>
+        <li>Transaction records and identity verification (KYC) information are retained for 5 years after account closure, as required by U.S. anti-money laundering regulations under the Bank Secrecy Act (31 U.S.C. &sect; 5311 et seq.) and its implementing regulations (31 C.F.R. Chapter X).</li>
+        <li>Retained data is stored solely for legal and regulatory compliance and is not used for any other purpose.</li>
+        <li>Some data is held by our payment processor, Stripe, Inc., under its own retention obligations.</li>
+      </ul>
+    </section>
+
+    <!-- Questions -->
+    <section>
+      <h3>Questions</h3>
+      <p>If you have questions about the deletion process, contact us at <a href="mailto:tippalcorp@gmail.com">tippalcorp@gmail.com</a>.</p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 28px 28px 96px;
+    color: var(--tippal-text);
+  }
+
+  /* ── Header ── */
+  .legal__head {
+    display: flex;
+    align-items: center;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--tippal-border-light);
+    margin-bottom: 48px;
+  }
+  .legal__logo img {
+    height: 42px;
+    display: block;
+  }
+
+  /* ── Document header ── */
+  .legal__doc-header {
+    margin-bottom: 56px;
+  }
+  .legal__doc-header h1 {
+    margin: 0 0 20px;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 3.6vw, 40px);
+    color: var(--tippal-accent);
+    line-height: 1.15;
+  }
+  .legal__doc-header p {
+    margin: 6px 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--tippal-text-secondary);
+  }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 32px;
+  }
+  section:last-child {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    font-weight: 800;
+    font-size: 19px;
+    color: var(--tippal-accent);
+  }
+
+  p {
+    margin: 0 0 12px;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--tippal-text-secondary);
+  }
+
+  ul, ol {
+    margin: 0 0 16px;
+    padding-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--tippal-text-secondary);
+  }
+
+  strong {
+    color: var(--tippal-accent);
+  }
+</style>
