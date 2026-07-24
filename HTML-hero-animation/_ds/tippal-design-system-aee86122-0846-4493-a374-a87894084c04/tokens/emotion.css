@@ -1,0 +1,28 @@
+/* Tippal DS — Emotional design layer (motion, elevation, celebration) */
+:root{
+  /* Motion — calm by default, joyful on celebration */
+  --tippal-ease-calm:cubic-bezier(.25,.1,.25,1); /* @kind other */
+  --tippal-ease-joy:cubic-bezier(.34,1.56,.64,1); /* @kind other */
+  --tippal-ease-settle:cubic-bezier(.22,1,.36,1); /* @kind other */
+  --tippal-dur-fast:150ms; /* @kind other */
+  --tippal-dur-base:250ms; /* @kind other */
+  --tippal-dur-slow:450ms; /* @kind other */
+  --tippal-dur-celebrate:900ms; /* @kind other */
+  /* Elevation — soft, warm, never harsh */
+  --tippal-shadow-rest:0 2px 8px rgba(48,0,106,.06);
+  --tippal-shadow-card:0 6px 20px -6px rgba(48,0,106,.12);
+  --tippal-shadow-float:0 12px 32px -8px rgba(48,0,106,.18);
+  --tippal-shadow-glow-primary:0 10px 24px -10px var(--tippal-primary);
+  --tippal-shadow-glow-joy:0 10px 28px -8px rgba(255,122,0,.45);
+  /* Emotional accents (derived from brand palette, oklch-harmonized) */
+  --tippal-heart:#FF7A59;
+  --tippal-heart-soft:#FFE9E2;
+  --tippal-smile:#FFD34D;
+  --tippal-calm:#7FB8FF;
+}
+/* Celebration keyframes */
+@keyframes tippal-pop{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes tippal-heart-float{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-90px) scale(1.15) rotate(8deg);opacity:0}}
+@keyframes tippal-confetti-fall{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(120px) rotate(340deg);opacity:0}}
+@keyframes tippal-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+@keyframes tippal-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}

@@ -9,20 +9,23 @@ import StoreButton from "./StoreButton.astro";
     <div class="hero__left">
       <div class="hero__badge hero-anim" style="animation-delay:0s">
         <HeartIcon size={15} color="var(--tippal-heart)" />
-        The first app made exclusively for tipping
+        The first app made exclusively for gratitude
       </div>
       <h1 class="hero__title hero-anim" style="animation-delay:.1s">
         Gratitude is human.<br />No pressure.
       </h1>
+      <p class="hero__tagline hero-anim" style="animation-delay:.15s">
+        Send and receive gratitude in person with <span class="hero__tagline-accent">Tap to Pay</span>.
+      </p>
       <p class="hero__desc hero-anim" style="animation-delay:.2s">
-        Tippal is the easiest way to say thank you with a tip.
+        Tippal is the easiest way to send gratitude in person — Apple Pay or Google Pay, no usernames, no QR codes.
       </p>
       <div class="hero__stores hero-anim" style="animation-delay:.3s">
         <StoreButton store="apple" href="#get" />
         <StoreButton store="google" href="#get" />
       </div>
       <div class="hero__micro hero-anim" style="animation-delay:.4s">
-        Free to download · Tips go to people, not platforms
+        Free to download · Every gift goes to people, not platforms
       </div>
     </div>
     <!-- Right column -->
@@ -33,12 +36,12 @@ import StoreButton from "./StoreButton.astro";
           alt="Two friends hugging"
           fetchpriority="high"
         />
-        <!-- "Tip sent!" pill -->
+        <!-- "Gratitude sent!" pill -->
         <div class="hero__pill">
           <span class="hero__pill-chip">
             <HeartIcon size={15} color="var(--tippal-heart)" />
           </span>
-          <span class="hero__pill-text">Tip sent!</span>
+          <span class="hero__pill-text">Gratitude sent!</span>
           <span class="hero__pill-amount">$5.00</span>
         </div>
         <!-- Floating hearts -->
@@ -107,6 +110,19 @@ import StoreButton from "./StoreButton.astro";
     line-height: 1.6;
     color: var(--tippal-text-secondary);
     text-wrap: pretty;
+  }
+  /* Co-equal Tap to Pay sub-headline — same DOM tier as the h1, not subordinate. */
+  .hero__tagline {
+    margin: 0;
+    max-width: 16ch;
+    font-family: var(--tippal-font-display);
+    font-weight: 600;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.1;
+    color: var(--tippal-accent);
+  }
+  .hero__tagline-accent {
+    color: var(--tippal-primary);
   }
   .hero__stores {
     display: flex;

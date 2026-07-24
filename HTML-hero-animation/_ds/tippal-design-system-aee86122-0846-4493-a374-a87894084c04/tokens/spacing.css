@@ -1,0 +1,14 @@
+/* Tippal DS — Spacing & radius tokens (synced from tippal-ds@1.0.0) */
+:root{
+  --tippal-space-xs:4px;
+  --tippal-space-sm:8px;
+  --tippal-space-md:16px;
+  --tippal-space-lg:24px;
+  --tippal-space-xl:32px;
+  --tippal-space-xxl:48px;
+  --tippal-radius-sm:8px;
+  --tippal-radius-md:12px;
+  --tippal-radius-lg:16px;
+  --tippal-radius-xl:24px;
+  --tippal-radius-full:9999px;
+}
