@@ -1,53 +1,48 @@
 ---
-import GlassCard from "./GlassCard.astro";
 import BalanceCard from "./BalanceCard.astro";
 import TransactionItem from "./TransactionItem.astro";
 ---
 
 <section class="demo">
-  <!-- Decorative circles -->
-  <div class="demo__circle demo__circle--1"></div>
-  <div class="demo__circle demo__circle--2"></div>
-
   <div class="demo__grid">
     <!-- Left column -->
-    <div class="demo__left anim-left">
+    <div class="demo__left">
       <h2 class="demo__title">Made for thank-yous</h2>
 
-      <GlassCard variant="readable">
+      <div class="demo__card">
         <div class="demo__feature">
-          <span class="demo__feature-chip" style="background:var(--tippal-heart-soft);color:var(--tippal-heart)">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6.5 8.5a8 8 0 0 1 0 7" />
-              <path d="M10.5 6.5a11 11 0 0 1 0 11" />
-              <path d="M14.5 4.5a14.5 14.5 0 0 1 0 15" />
-            </svg>
-          </span>
           <div>
-            <div class="demo__feature-title">Tap to Pay, in person</div>
+            <div class="demo__feature-title">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-heart)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px;margin-right:8px">
+                <path d="M6.5 8.5a8 8 0 0 1 0 7" />
+                <path d="M10.5 6.5a11 11 0 0 1 0 11" />
+                <path d="M14.5 4.5a14.5 14.5 0 0 1 0 15" />
+              </svg>
+              Tap to Pay, in person
+            </div>
             <div class="demo__feature-desc">Tap your phone to theirs and your gratitude is on its way with Tap to Pay. Apple Pay or Google Pay — no QR codes, no usernames.</div>
           </div>
         </div>
-      </GlassCard>
+      </div>
 
-      <GlassCard variant="readable">
+      <div class="demo__card">
         <div class="demo__feature">
-          <span class="demo__feature-chip" style="background:var(--tippal-primary-light);color:var(--tippal-primary)">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="3" />
-              <path d="m3.5 7 8.5 6 8.5-6" />
-            </svg>
-          </span>
           <div>
-            <div class="demo__feature-title">Just an email to join</div>
+            <div class="demo__feature-title">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px;margin-right:8px">
+                <rect x="3" y="5" width="18" height="14" rx="3" />
+                <path d="m3.5 7 8.5 6 8.5-6" />
+              </svg>
+              Just an email to join
+            </div>
             <div class="demo__feature-desc">Sign up with your email and start receiving appreciation right away. No forms, no waiting.</div>
           </div>
         </div>
-      </GlassCard>
+      </div>
     </div>
 
     <!-- Right column: phone mockup -->
-    <div class="demo__right anim-phone">
+    <div class="demo__right">
       <div class="demo__phone">
         <!-- Notch -->
         <div class="demo__notch"><span></span></div>
@@ -72,24 +67,6 @@ import TransactionItem from "./TransactionItem.astro";
     overflow: hidden;
     padding: 104px 28px;
   }
-  .demo__circle {
-    position: absolute;
-    border-radius: 50%;
-  }
-  .demo__circle--1 {
-    top: -90px;
-    right: -60px;
-    width: 320px;
-    height: 320px;
-    background: rgba(255, 255, 255, 0.07);
-  }
-  .demo__circle--2 {
-    bottom: -120px;
-    left: -80px;
-    width: 380px;
-    height: 380px;
-    background: rgba(255, 255, 255, 0.05);
-  }
   .demo__grid {
     max-width: 1140px;
     margin: 0 auto;
@@ -102,7 +79,7 @@ import TransactionItem from "./TransactionItem.astro";
   .demo__left {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 18px;
   }
   .demo__title {
     margin: 0;
@@ -111,19 +88,16 @@ import TransactionItem from "./TransactionItem.astro";
     font-size: clamp(32px, 4vw, 48px);
     color: #fff;
   }
+  .demo__card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px 24px;
+    box-shadow: var(--tippal-shadow-card);
+  }
   .demo__feature {
     display: flex;
     gap: 14px;
     align-items: flex-start;
-  }
-  .demo__feature-chip {
-    width: 42px;
-    height: 42px;
-    border-radius: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
   }
   .demo__feature-title {
     font-weight: 800;
@@ -134,7 +108,7 @@ import TransactionItem from "./TransactionItem.astro";
     font-size: 14.5px;
     line-height: 1.55;
     color: var(--tippal-text-secondary);
-    margin-top: 3px;
+    margin-top: 4px;
   }
   .demo__right {
     display: flex;
@@ -167,17 +141,5 @@ import TransactionItem from "./TransactionItem.astro";
     letter-spacing: 0.3px;
     color: var(--tippal-text-tertiary);
     padding: 0 10px 6px;
-  }
-
-  /* Scroll animations */
-  .anim-left {
-    animation: kf-left linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 35%;
-  }
-  .anim-phone {
-    animation: kf-phone linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
   }
 </style>

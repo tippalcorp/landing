@@ -31,7 +31,7 @@
 
   /* Motion */
   --tippal-ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
-  --tippal-ease-joy: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --tippal-ease-joy: cubic-bezier(0.22, 1, 0.36, 1); /* was overshoot bezier — settled per Hallmark audit */
   --tippal-dur-celebrate: 900ms;
 }
 

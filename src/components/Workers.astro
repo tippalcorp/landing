@@ -1,15 +1,15 @@
 <section id="why" class="workers">
   <div class="workers__inner">
-    <h2 class="workers__title anim-rise" style="animation-range: entry 0% entry 80%">
+    <h2 class="workers__title">
       Made for the people who make your day
     </h2>
-    <p class="workers__desc anim-rise" style="animation-range: entry 0% entry 100%">
+    <p class="workers__desc">
       Baristas, valets, drivers, housekeepers, creators — and everyone who wants to show them real recognition.
     </p>
     <img
       src="/assets/workers.png"
       alt="Service workers receiving gratitude"
-      class="workers__img anim-reveal"
+      class="workers__img"
       loading="lazy"
     />
   </div>
@@ -24,7 +24,6 @@
   .workers__inner {
     max-width: 1000px;
     margin: 0 auto;
-    text-align: center;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -49,16 +48,5 @@
     max-width: 890px;
     margin: 26px auto 0;
     display: block;
-  }
-
-  /* Scroll animations */
-  .anim-rise {
-    animation: kf-rise linear both;
-    animation-timeline: view();
-  }
-  .anim-reveal {
-    animation: kf-reveal linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 45%;
   }
 </style>

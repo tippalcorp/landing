@@ -4,11 +4,11 @@ import StoreButton from "./StoreButton.astro";
 
 <section id="get" class="manifesto">
   <div class="manifesto__inner">
-    <h2 class="manifesto__title anim-grow">Together, we stop Tipflation.</h2>
-    <p class="manifesto__desc anim-rise" style="animation-range: entry 0% cover 30%">
+    <h2 class="manifesto__title">Together, we stop Tipflation.</h2>
+    <p class="manifesto__desc">
       Gratitude shouldn't feel like a toll at every checkout. Tippal takes the pressure out and keeps the gratitude real — gratitude is a gift, not a fee.
     </p>
-    <div class="manifesto__stores anim-rise" style="animation-range: entry 0% cover 35%">
+    <div class="manifesto__stores">
       <StoreButton store="apple" href="#top" size="lg" />
       <StoreButton store="google" href="#top" size="lg" />
     </div>
@@ -50,16 +50,5 @@ import StoreButton from "./StoreButton.astro";
     justify-content: center;
     gap: 14px;
     margin-top: 8px;
-  }
-
-  /* Scroll animations */
-  .anim-grow {
-    animation: kf-grow linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 90%;
-  }
-  .anim-rise {
-    animation: kf-rise linear both;
-    animation-timeline: view();
   }
 </style>

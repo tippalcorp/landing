@@ -29,15 +29,14 @@ const steps = [
 
 <section id="how" class="how">
   <div class="how__inner">
-    <header class="how__header anim-rise" style="animation-range: entry 0% entry 90%">
+    <header class="how__header">
       <h2 class="how__title">Three taps to thank you</h2>
       <p class="how__sub">No terminals, no awkward screens. Just people.</p>
     </header>
     <div class="how__cards">
       {steps.map((step, i) => (
         <div
-          class="how__card"
-          style={`animation-range: ${step.range}`}
+          class={`how__card how__card--${i}`}
         >
           <div class="how__card-top">
             <span class="how__chip" style={`background:${step.chipBg};color:${step.chipFg}`}>
@@ -100,7 +99,7 @@ const steps = [
   }
   .how__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 1.3fr 1fr 0.9fr;
     gap: 24px;
   }
   .how__card {
@@ -111,13 +110,17 @@ const steps = [
     display: flex;
     flex-direction: column;
     gap: 16px;
-    animation: kf-rise linear both;
-    animation-timeline: view();
-    transition: transform 250ms var(--tippal-ease-joy), box-shadow 250ms;
+    transition: transform 250ms var(--tippal-ease-settle), box-shadow 250ms;
   }
   .how__card:hover {
     transform: scale(1.03);
     box-shadow: var(--tippal-shadow-float);
+  }
+  /* Mobile: collapse back to equal columns */
+  @media (max-width: 720px) {
+    .how__cards {
+      grid-template-columns: 1fr;
+    }
   }
   .how__card-top {
     display: flex;
@@ -147,11 +150,5 @@ const steps = [
     font-size: 15.5px;
     line-height: 1.55;
     color: var(--tippal-text-secondary);
-  }
-
-  /* Scroll animation */
-  .anim-rise {
-    animation: kf-rise linear both;
-    animation-timeline: view();
   }
 </style>
