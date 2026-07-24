@@ -16,6 +16,9 @@ import HeartIcon from "./HeartIcon.astro";
       <HeartIcon size={14} color="var(--tippal-heart)" />
       gratitude
     </div>
+    <span class="footer__us" title="Currently available in the US">
+      🇺🇸 Available in the US
+    </span>
   </div>
 </footer>
 
@@ -54,5 +57,17 @@ import HeartIcon from "./HeartIcon.astro";
     font-size: 13.5px;
     font-weight: 600;
     color: var(--tippal-text-tertiary);
+  }
+  /* US-only availability badge — minimal inline text element (spec: small text, not a banner). */
+  .footer__us {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tippal-text-tertiary);
+    background: var(--tippal-secondary-light);
+    padding: 4px 10px;
+    border-radius: 9999px;
   }
 </style>

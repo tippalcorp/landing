@@ -1,0 +1,272 @@
+---
+// HeroScroll.astro — scroll-driven character showcase.
+// 350dvh runway: characters reveal one by one with non-linear timing
+// (first character stays longer). Each active character shows an
+// animated feature caption.
+const CHARS = [
+  { src: "/assets/barista.webp", alt: "A barista at work", w: 330, h: 422,
+    label: "Baristas",
+    feature: "Receive gratitude after every shift — no cash, no terminals." },
+  { src: "/assets/valet.webp", alt: "A hotel valet", w: 280, h: 420,
+    label: "Valets",
+    feature: "Your phone is all you need. Gratitude arrives before the car does." },
+  { src: "/assets/driver.webp", alt: "A rideshare driver", w: 398, h: 376,
+    label: "Drivers",
+    feature: "Every ride, every thank-you — straight to your balance, no middleman." },
+  { src: "/assets/housekeeper.webp", alt: "A hotel housekeeper", w: 285, h: 417,
+    label: "Housekeeping",
+    feature: "Guests can finally say thank you without carrying cash." },
+  { src: "/assets/creator.webp", alt: "A content creator", w: 345, h: 444,
+    label: "Creators",
+    feature: "Your audience supports you directly — zero platform fees, full gratitude." },
+];
+// Non-linear breakpoints: first char gets 40% so the user has time to notice it.
+// Cumulative thresholds: [0.40, 0.58, 0.74, 0.88, 1.00]
+const BREAKS = [0.40, 0.58, 0.74, 0.88, 1.00];
+---
+
+<section id="heroes" class="hero-scroll" aria-label="People you can send gratitude to">
+  <div class="hero-scroll__sticky">
+    <div class="hero-scroll__inner">
+      <!-- Character row -->
+      <div class="hero-scroll__row">
+        {CHARS.map((c, i) => (
+          <figure class="hero-scroll__char" data-char={i}>
+            <img
+              class="hero-scroll__img"
+              src={c.src}
+              alt={c.alt}
+              width={c.w}
+              height={c.h}
+              loading={i === 0 ? "eager" : "lazy"}
+              {...(i === 0 ? { fetchpriority: "high" } : {})}
+            />
+          </figure>
+        ))}
+      </div>
+      <!-- Feature captions: one per character, hidden until active -->
+      <div class="hero-scroll__captions" aria-live="polite">
+        {CHARS.map((c, i) => (
+          <div class="hero-scroll__caption" data-caption={i}>
+            <span class="hero-scroll__caption-label">{c.label}</span>
+            <span class="hero-scroll__caption-feature">{c.feature}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.getElementById('heroes');
+  if (section) {
+    const chars = section.querySelectorAll('.hero-scroll__char');
+    const captions = section.querySelectorAll('.hero-scroll__caption');
+    if (chars.length) {
+      // Breakpoints encoded as data for the script
+      const breaks = [0.40, 0.58, 0.74, 0.88, 1.00];
+
+      // First character + its caption active on load
+      chars[0].classList.add('is-active');
+      captions[0].classList.add('is-visible');
+
+      function update() {
+        const sy = window.scrollY;
+        const stop = section.offsetTop;
+        const sh = section.offsetHeight;
+        const vh = window.innerHeight;
+        const p = Math.max(0, Math.min(1, (sy + vh - stop) / sh));
+
+        // Find which breakpoint range p falls into
+        let idx = 0;
+        for (let i = 0; i < breaks.length; i++) {
+          if (p <= breaks[i]) { idx = i; break; }
+        }
+
+        chars.forEach((el, i) => {
+          el.classList.toggle('is-active', i === idx);
+          el.classList.toggle('is-seen', i <= idx);
+        });
+        captions.forEach((el, i) => {
+          el.classList.toggle('is-visible', i === idx);
+        });
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      requestAnimationFrame(() => requestAnimationFrame(update));
+    }
+  }
+</script>
+
+<style>
+  .hero-scroll {
+    min-height: 350dvh;
+    background: var(--tippal-background);
+  }
+  @supports not (height: 100dvh) {
+    .hero-scroll { min-height: 350vh; }
+    .hero-scroll__sticky { height: 100vh; }
+  }
+
+  .hero-scroll__sticky {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-scroll__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(24px, 4vh, 48px);
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 28px;
+  }
+
+  /* ── Character row ── */
+  .hero-scroll__row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 40px);
+    width: 100%;
+  }
+
+  .hero-scroll__char {
+    margin: 0;
+    flex: 0 0 auto;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--tippal-shadow-card);
+    opacity: 0.75;
+    filter: grayscale(0.2);
+    transform: scale(0.92);
+    transition:
+      opacity 0.5s var(--tippal-ease-settle),
+      filter 0.5s var(--tippal-ease-settle),
+      transform 0.5s var(--tippal-ease-settle),
+      box-shadow 0.5s var(--tippal-ease-settle);
+  }
+
+  .hero-scroll__char.is-seen {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1);
+  }
+
+  .hero-scroll__char.is-active {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.08);
+    box-shadow:
+      0 20px 50px -16px rgba(48, 0, 106, 0.35),
+      0 0 0 4px rgba(138, 43, 226, 0.22);
+    z-index: 1;
+    animation: kf-char-spotlight 2.6s ease-in-out infinite;
+  }
+
+  .hero-scroll__img {
+    display: block;
+    width: clamp(100px, 15vw, 220px);
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* ── Feature captions ── */
+  .hero-scroll__captions {
+    position: relative;
+    min-height: clamp(60px, 8vh, 96px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-scroll__caption {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.45s var(--tippal-ease-settle),
+      transform 0.45s var(--tippal-ease-settle);
+    pointer-events: none;
+  }
+
+  .hero-scroll__caption.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .hero-scroll__caption-label {
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(22px, 2.8vw, 34px);
+    color: var(--tippal-accent);
+    line-height: 1.2;
+  }
+
+  .hero-scroll__caption-feature {
+    font-family: var(--tippal-font-family);
+    font-weight: 600;
+    font-size: clamp(15px, 1.6vw, 18px);
+    color: var(--tippal-text-secondary);
+    max-width: 42ch;
+    line-height: 1.45;
+    text-wrap: pretty;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 720px) {
+    .hero-scroll__inner {
+      gap: 20px;
+    }
+    .hero-scroll__row {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .hero-scroll__img {
+      width: clamp(80px, 32vw, 130px);
+    }
+    .hero-scroll__char.is-active {
+      transform: scale(1.06);
+    }
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll { min-height: auto; }
+    .hero-scroll__sticky { position: relative; height: auto; padding: 56px 0; }
+    .hero-scroll__char {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      transition: none;
+    }
+    .hero-scroll__char.is-active {
+      transform: none;
+      box-shadow: var(--tippal-shadow-card);
+      animation: none;
+    }
+    .hero-scroll__caption {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .hero-scroll__captions {
+      min-height: auto;
+    }
+    .hero-scroll__caption { position: static; }
+  }
+</style>

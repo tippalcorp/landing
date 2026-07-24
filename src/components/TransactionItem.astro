@@ -14,6 +14,14 @@ const isSent = type === "tip_sent";
 const chipBg = isSent ? "var(--tippal-heart-soft)" : "var(--tippal-success-light)";
 const chipFg = isSent ? "var(--tippal-heart)" : "var(--tippal-success-dark)";
 const amountColor = isSent ? "var(--tippal-accent)" : "var(--tippal-success-dark)";
+
+// Display-only label map. The prop identifier union (tip_sent|tip_received)
+// is preserved untouched; only the rendered caption uses gratitude terminology.
+const txLabels: Record<string, string> = {
+  tip_sent: "gratitude sent",
+  tip_received: "gratitude received",
+};
+const txLabel = txLabels[type] ?? "";
 ---
 
 <div class={`tx-item${isLast ? " tx-item--last" : ""}`}>
@@ -27,6 +35,7 @@ const amountColor = isSent ? "var(--tippal-accent)" : "var(--tippal-success-dark
     </svg>
   </span>
   <span class="tx-item__mid">
+    <span class="tx-item__label">{txLabel}</span>
     <span class="tx-item__name">{name}</span>
     <span class="tx-item__note">{note}</span>
   </span>
@@ -63,6 +72,13 @@ const amountColor = isSent ? "var(--tippal-accent)" : "var(--tippal-success-dark
     display: flex;
     flex-direction: column;
     gap: 2px;
+  }
+  .tx-item__label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: var(--tippal-text-tertiary);
   }
   .tx-item__name {
     font-weight: 800;
