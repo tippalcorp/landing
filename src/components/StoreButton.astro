@@ -1,7 +1,7 @@
 ---
 export interface Props {
   store: "apple" | "google";
-  href: string;
+  href?: string;
   size?: "md" | "lg";
 }
 
@@ -14,25 +14,71 @@ const bottomLabel = isMd ? "16.5px" : "18px";
 
 const applePath = "M17.05 12.54c-.03-2.9 2.37-4.29 2.48-4.36-1.35-1.97-3.45-2.24-4.2-2.27-1.79-.18-3.49 1.05-4.4 1.05-.9 0-2.3-1.02-3.79-1-1.95.03-3.74 1.13-4.74 2.87-2.02 3.5-.52 8.69 1.45 11.53.96 1.39 2.11 2.95 3.62 2.89 1.45-.06 2-.94 3.76-.94s2.25.94 3.79.91c1.57-.03 2.56-1.42 3.52-2.81 1.11-1.61 1.56-3.17 1.59-3.25-.04-.02-3.05-1.17-3.08-4.62zM14.16 4.1c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.86-1.39 2.23-1.22 3.55 1.29.1 2.6-.65 3.41-1.63z";
 const playPath = "M4 2.5v19l11-9.5L4 2.5zM16.8 10.1l3.3 1.9c1 .6 1 1.4 0 2l-3.3 1.9-2.9-2.9 2.9-2.9z";
+
+const isLink = Boolean(href);
 ---
 
-<a
-  href={href}
-  class="store-btn"
-  style={`padding:${padding}`}
->
-  <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d={store === "apple" ? applePath : playPath} />
-  </svg>
-  <span class="store-btn__labels">
-    <span class="store-btn__top" style={`font-size:${topLabel}`}>
-      {store === "apple" ? "Download on the" : "Get it on"}
+{isLink ? (
+  <a
+    href={href}
+    class="store-btn"
+    style={`padding:${padding}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d={store === "apple" ? applePath : playPath} />
+    </svg>
+    <span class="store-btn__labels">
+      <span class="store-btn__top" style={`font-size:${topLabel}`}>
+        {store === "apple" ? "Download on the" : "Get it on"}
+      </span>
+      <span class="store-btn__bottom" style={`font-size:${bottomLabel}`}>
+        {store === "apple" ? "App Store" : "Google Play"}
+      </span>
     </span>
-    <span class="store-btn__bottom" style={`font-size:${bottomLabel}`}>
-      {store === "apple" ? "App Store" : "Google Play"}
+  </a>
+) : (
+  <button
+    type="button"
+    class="store-btn store-btn--trigger"
+    style={`padding:${padding}`}
+    data-store-modal={store}
+  >
+    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d={store === "apple" ? applePath : playPath} />
+    </svg>
+    <span class="store-btn__labels">
+      <span class="store-btn__top" style={`font-size:${topLabel}`}>
+        {store === "apple" ? "Download on the" : "Get it on"}
+      </span>
+      <span class="store-btn__bottom" style={`font-size:${bottomLabel}`}>
+        {store === "apple" ? "App Store" : "Google Play"}
+      </span>
     </span>
-  </span>
-</a>
+  </button>
+)}
+
+{!isLink && (
+  <dialog class="store-modal" data-store-modal-dialog={store}>
+    <div class="store-modal__inner">
+      <button type="button" class="store-modal__close" data-store-modal-close={store} aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="var(--tippal-accent)" aria-hidden="true" class="store-modal__icon">
+        <path d={applePath} />
+      </svg>
+      <h3 class="store-modal__title">Coming soon</h3>
+      <p class="store-modal__desc">
+        The TipPal app for iOS is on its way. Stay tuned — we're almost there!
+      </p>
+      <button type="button" class="store-modal__ok" data-store-modal-close={store}>Got it</button>
+    </div>
+  </dialog>
+)}
 
 <style>
   .store-btn {
@@ -44,6 +90,9 @@ const playPath = "M4 2.5v19l11-9.5L4 2.5zM16.8 10.1l3.3 1.9c1 .6 1 1.4 0 2l-3.3 
     border-radius: 15px;
     box-shadow: var(--tippal-shadow-float);
     transition: transform 150ms var(--tippal-ease-settle);
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
   }
   .store-btn:hover {
     transform: scale(1.03);
@@ -62,4 +111,116 @@ const playPath = "M4 2.5v19l11-9.5L4 2.5zM16.8 10.1l3.3 1.9c1 .6 1 1.4 0 2l-3.3 
     display: block;
     font-weight: 800;
   }
+
+  /* ── Modal ── */
+  .store-modal {
+    border: none;
+    border-radius: 24px;
+    padding: 0;
+    max-width: 380px;
+    width: 90vw;
+    box-shadow: var(--tippal-shadow-float);
+    background: #fff;
+    overflow: visible;
+  }
+  .store-modal::backdrop {
+    background: rgba(48, 0, 106, 0.35);
+    backdrop-filter: blur(4px);
+  }
+  .store-modal__inner {
+    padding: 48px 36px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    position: relative;
+  }
+  .store-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--tippal-text-tertiary);
+    padding: 4px;
+    border-radius: 8px;
+    line-height: 0;
+    transition: background 150ms var(--tippal-ease-settle);
+  }
+  .store-modal__close:hover {
+    background: var(--tippal-border-light);
+    color: var(--tippal-text);
+  }
+  .store-modal__icon {
+    flex-shrink: 0;
+  }
+  .store-modal__title {
+    margin: 0;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--tippal-accent);
+  }
+  .store-modal__desc {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--tippal-text-secondary);
+    text-wrap: pretty;
+  }
+  .store-modal__ok {
+    margin-top: 8px;
+    padding: 12px 32px;
+    border-radius: 12px;
+    border: none;
+    background: var(--tippal-accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 150ms var(--tippal-ease-settle);
+  }
+  .store-modal__ok:hover {
+    transform: scale(1.05);
+  }
 </style>
+
+<script>
+  // Guard against duplicate init when multiple StoreButton instances exist on the page
+  if (!window.__tippalStoreModalInit) {
+    window.__tippalStoreModalInit = true;
+
+    const seen = new Set<string>();
+    document.querySelectorAll('[data-store-modal]').forEach((trigger) => {
+      const store = trigger.dataset.storeModal;
+      if (!store || seen.has(store)) return;
+      seen.add(store);
+
+      const dialog = document.querySelector(`[data-store-modal-dialog="${store}"]`);
+      if (!dialog) return;
+
+      trigger.addEventListener('click', () => {
+        if (dialog instanceof HTMLDialogElement) {
+          dialog.showModal();
+        }
+      });
+
+      dialog.querySelectorAll('[data-store-modal-close]').forEach((closer) => {
+        closer.addEventListener('click', () => {
+          if (dialog instanceof HTMLDialogElement) {
+            dialog.close();
+          }
+        });
+      });
+
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) {
+          dialog.close();
+        }
+      });
+    });
+  }
+</script>
