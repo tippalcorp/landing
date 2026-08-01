@@ -39,45 +39,44 @@ const isLink = Boolean(href);
     </span>
   </a>
 ) : (
-  <button
-    type="button"
-    class="store-btn store-btn--trigger"
-    style={`padding:${padding}`}
-    data-store-modal={store}
-  >
-    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d={store === "apple" ? applePath : playPath} />
-    </svg>
-    <span class="store-btn__labels">
-      <span class="store-btn__top" style={`font-size:${topLabel}`}>
-        {store === "apple" ? "Download on the" : "Get it on"}
-      </span>
-      <span class="store-btn__bottom" style={`font-size:${bottomLabel}`}>
-        {store === "apple" ? "App Store" : "Google Play"}
-      </span>
-    </span>
-  </button>
-)}
-
-{!isLink && (
-  <dialog class="store-modal" data-store-modal-dialog={store}>
-    <div class="store-modal__inner">
-      <button type="button" class="store-modal__close" data-store-modal-close={store} aria-label="Close">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      </button>
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="var(--tippal-accent)" aria-hidden="true" class="store-modal__icon">
-        <path d={applePath} />
+  <div class="store-modal-wrapper">
+    <button
+      type="button"
+      class="store-btn store-btn--trigger"
+      style={`padding:${padding}`}
+      data-store-modal-trigger
+    >
+      <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d={store === "apple" ? applePath : playPath} />
       </svg>
-      <h3 class="store-modal__title">Coming soon</h3>
-      <p class="store-modal__desc">
-        The TipPal app for iOS is on its way. Stay tuned — we're almost there!
-      </p>
-      <button type="button" class="store-modal__ok" data-store-modal-close={store}>Got it</button>
-    </div>
-  </dialog>
+      <span class="store-btn__labels">
+        <span class="store-btn__top" style={`font-size:${topLabel}`}>
+          {store === "apple" ? "Download on the" : "Get it on"}
+        </span>
+        <span class="store-btn__bottom" style={`font-size:${bottomLabel}`}>
+          {store === "apple" ? "App Store" : "Google Play"}
+        </span>
+      </span>
+    </button>
+    <dialog class="store-modal">
+      <div class="store-modal__inner">
+        <button type="button" class="store-modal__close" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="var(--tippal-accent)" aria-hidden="true" class="store-modal__icon">
+          <path d={applePath} />
+        </svg>
+        <h3 class="store-modal__title">Coming soon</h3>
+        <p class="store-modal__desc">
+          The TipPal app for iOS is on its way. Stay tuned — we're almost there!
+        </p>
+        <button type="button" class="store-modal__ok">Got it</button>
+      </div>
+    </dialog>
+  </div>
 )}
 
 <style>
@@ -188,39 +187,28 @@ const isLink = Boolean(href);
   }
 </style>
 
-<script>
-  // Guard against duplicate init when multiple StoreButton instances exist on the page
-  if (!window.__tippalStoreModalInit) {
-    window.__tippalStoreModalInit = true;
+<script is:inline>
+  // Scoped to this instance's wrapper — safe to run once per StoreButton on the page
+  (() => {
+    const wrapper = document.currentScript?.previousElementSibling;
+    const trigger = wrapper?.querySelector?.('[data-store-modal-trigger]');
+    const dialog = wrapper?.querySelector?.('dialog');
+    if (!trigger || !dialog) return;
 
-    const seen = new Set<string>();
-    document.querySelectorAll('[data-store-modal]').forEach((trigger) => {
-      const store = trigger.dataset.storeModal;
-      if (!store || seen.has(store)) return;
-      seen.add(store);
+    trigger.addEventListener('click', () => {
+      dialog.showModal();
+    });
 
-      const dialog = document.querySelector(`[data-store-modal-dialog="${store}"]`);
-      if (!dialog) return;
-
-      trigger.addEventListener('click', () => {
-        if (dialog instanceof HTMLDialogElement) {
-          dialog.showModal();
-        }
-      });
-
-      dialog.querySelectorAll('[data-store-modal-close]').forEach((closer) => {
-        closer.addEventListener('click', () => {
-          if (dialog instanceof HTMLDialogElement) {
-            dialog.close();
-          }
-        });
-      });
-
-      dialog.addEventListener('click', (e) => {
-        if (e.target === dialog) {
-          dialog.close();
-        }
+    dialog.querySelectorAll('.store-modal__close, .store-modal__ok').forEach((closer) => {
+      closer.addEventListener('click', () => {
+        dialog.close();
       });
     });
-  }
+
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        dialog.close();
+      }
+    });
+  })();
 </script>
