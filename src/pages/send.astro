@@ -1,0 +1,134 @@
+---
+// Static page. Query param `to` is read client-side.
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TipPal — Send gratitude</title>
+    <meta name="description" content="Send gratitude instantly with TipPal. Scan, tap, and share appreciation." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <img
+          src="/assets/logo.png"
+          alt="TipPal logo"
+          class="logo"
+          width="120"
+          height="120"
+        />
+
+        <h1 id="title">Send gratitude with TipPal</h1>
+
+        <p class="subtitle">
+          Choose an amount, tap your phone, and send appreciation in seconds.
+        </p>
+
+        <a
+          href="https://play.google.com/store/apps/details?id=com.tippalcorp.app"
+          class="button"
+        >
+          Get TipPal on Google Play
+        </a>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif;
+    background-color: #f3e8ff;
+    color: #30006a;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  .container {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .logo {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #30006a;
+  }
+
+  h1 .email {
+    color: #007FFF;
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: #666666;
+    max-width: 280px;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: #30006a;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .button:hover {
+    opacity: 0.92;
+  }
+</style>
+
+<script>
+  // Read `to` query param and update the title dynamically.
+  const params = new URLSearchParams(window.location.search);
+  const to = params.get("to");
+
+  if (to) {
+    const title = document.getElementById("title");
+    if (title) {
+      title.innerHTML = `Send gratitude to <span class="email">${to}</span>`;
+    }
+  }
+</script>
