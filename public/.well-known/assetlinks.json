@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tippalcorp.app",
+      "sha256_cert_fingerprints": [
+        "E8:3A:87:75:8F:C2:0C:2D:A1:11:B7:13:14:B7:A3:BE:27:86:12:E4:22:68:78:CC:9C:01:80:2C:7E:80:A0:BD"
+      ]
+    }
+  }
+]
