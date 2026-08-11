@@ -1,21 +1,44 @@
 ---
 import HeartIcon from "./HeartIcon.astro";
+
+// Server-rendered language toggle (no client JS).
+// Computes the alternate-locale URL from the current path.
+const path = Astro.url.pathname;
+const isSpanish = path.startsWith("/es");
+let altHref: string;
+let toggleLabel: string;
+if (isSpanish) {
+  // /es/legal -> /legal ; /es -> /
+  altHref = path.replace(/^\/es\/?/, "/") || "/";
+  toggleLabel = "English";
+} else {
+  // /legal -> /es/legal ; / -> /es
+  altHref = path === "/" ? "/es" : "/es" + path;
+  toggleLabel = "Español";
+}
 ---
 
 <footer class="footer">
   <div class="footer__inner">
     <img src="/assets/logo.png" alt="TipPal" height="38" class="footer__logo" />
-    <div class="footer__links">
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/contact">Contact</a>
+      <a href="/faq">FAQ</a>
+      <a href="/security">Security</a>
       <a href="/legal#privacy">Privacy</a>
       <a href="/legal#terms">Terms</a>
       <a href="/delete-account">Delete account</a>
-      <a href="#top">Contact</a>
-    </div>
+    </nav>
+    <!-- Conditional social slot: renders nothing when no content is provided. -->
+    <slot name="social" />
     <div class="footer__made">
       Made with
       <HeartIcon size={14} color="var(--tippal-heart)" />
       gratitude
     </div>
+    <a class="footer__lang" href={altHref} hreflang={isSpanish ? "en" : "es"} lang={isSpanish ? "en" : "es"}>
+      {toggleLabel}
+    </a>
     <span class="footer__us" title="Currently available in the US">
       🇺🇸 Available in the US
     </span>
@@ -43,12 +66,16 @@ import HeartIcon from "./HeartIcon.astro";
   }
   .footer__links {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
     font-size: 13.5px;
     font-weight: 600;
   }
   .footer__links a {
     color: var(--tippal-text-tertiary);
+  }
+  .footer__links a:hover {
+    color: var(--tippal-primary);
   }
   .footer__made {
     display: flex;
@@ -57,6 +84,23 @@ import HeartIcon from "./HeartIcon.astro";
     font-size: 13.5px;
     font-weight: 600;
     color: var(--tippal-text-tertiary);
+  }
+  .footer__lang {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--tippal-secondary);
+    border: 1px solid var(--tippal-secondary-light);
+    border-radius: 9999px;
+    padding: 5px 14px;
+    transition: background 150ms var(--tippal-ease-settle);
+  }
+  .footer__lang:hover {
+    background: var(--tippal-secondary-light);
+    color: var(--tippal-secondary);
+  }
+  .footer__lang:focus-visible {
+    outline: 2px solid var(--tippal-primary);
+    outline-offset: 3px;
   }
   /* US-only availability badge — minimal inline text element (spec: small text, not a banner). */
   .footer__us {
@@ -69,5 +113,12 @@ import HeartIcon from "./HeartIcon.astro";
     background: var(--tippal-secondary-light);
     padding: 4px 10px;
     border-radius: 9999px;
+  }
+
+  @media (max-width: 640px) {
+    .footer__links {
+      gap: 16px 20px;
+      font-size: 13px;
+    }
   }
 </style>

@@ -1,0 +1,58 @@
+---
+import StaticPageLayout from "../../layouts/StaticPageLayout.astro";
+---
+
+<!-- TODO: human review ES copy -->
+<StaticPageLayout
+  title="Seguridad"
+  seoTitle="TipPal — Seguridad"
+  description="Cómo TipPal protege tu información y tus pagos: procesamiento de pagos con Stripe, modelo de custodia, cifrado, verificación de identidad (KYC) y aviso de que no somos un banco."
+  lastUpdated="10 de agosto de 2026"
+  canonicalURL="/es/security"
+  lang="es"
+  hreflang={{ en: "/security", es: "/es/security" }}
+>
+  <section>
+    <p>La seguridad es central en cómo se construye TipPal. Esta página explica, de forma sencilla, cómo se procesan tus pagos, cómo se custodia tu saldo, cómo protegemos tu información y qué papel juega la verificación de identidad.</p>
+  </section>
+
+  <section>
+    <h3>Procesamiento de pagos con Stripe</h3>
+    <p>TipPal no mueve dinero por sí mismo. Los pagos los procesa <strong>Stripe, Inc.</strong>, un procesador de pagos registrado utilizado por miles de empresas en todo el mundo. TipPal opera como Facilitador de pagos: tus cargos se procesan a través de Stripe bajo las credenciales de procesamiento de TipPal, no bajo una cuenta bancaria propia. Esto significa que los datos de tu tarjeta los maneja la infraestructura auditada y compatible con PCI de Stripe, no los almacena TipPal directamente.</p>
+    <p>Para más detalle, consulta la documentación de seguridad de Stripe y nuestros <a href="/es/legal#terms">Términos de servicio</a>.</p>
+  </section>
+
+  <section>
+    <h3>Modelo de custodia: saldo en crédito, no un depósito bancario</h3>
+    <p>El saldo que ves en la app de TipPal es un <strong>registro contable de crédito</strong> — un acuerdo pendiente a tu favor — no un depósito bancario, una cuenta de valores ni un producto financiero asegurado.</p>
+    <ul>
+      <li>Los fondos correspondientes a tu saldo se procesan y custodian a través de Stripe bajo las credenciales de TipPal hasta que se completen los requisitos de verificación aplicables.</li>
+      <li>TipPal mantiene reservas operativas suficientes para respaldar la disponibilidad de los fondos correspondientes a retiros autorizados.</li>
+      <li>TipPal no paga intereses sobre los saldos custodiados en la plataforma.</li>
+      <li>Las transferencias internas entre usuarios de TipPal son ajustes contables, no nuevas transacciones financieras externas.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Cifrado</h3>
+    <p>TipPal usa cifrado estándar de la industria para proteger los datos en tránsito (entre tu dispositivo y nuestros servidores) y en reposo. Los tokens de autenticación, los documentos de verificación de identidad y las referencias de pago se manejan con los controles de seguridad de Stripe y de nuestros proveedores de infraestructura. Aunque ningún sistema es completamente seguro, seguimos medidas técnicas y organizativas reconocidas para proteger tu información.</p>
+  </section>
+
+  <section>
+    <h3>Verificación de identidad (KYC) para retiros</h3>
+    <p>Antes de poder retirar (cash out) tu saldo a una cuenta bancaria o tarjeta externa, TipPal debe completar la verificación de identidad (KYC). Esto lo exigen las leyes estadounidenses contra el lavado de dinero, incluida la Bank Secrecy Act (31 U.S.C. &sect; 5311 et seq.) y sus reglamentos de aplicación (31 C.F.R. Chapter X).</p>
+    <p>TipPal puede retener, retrasar, suspender o rechazar solicitudes de retiro mientras el KYC esté incompleto o durante revisiones de cumplimiento. El KYC generalmente no se exige para transferencias internas entre usuarios de TipPal a menos que una parte retire a una cuenta bancaria o tarjeta externa.</p>
+    <p>Para detalles sobre qué datos recopilamos para la verificación y por cuánto tiempo se conservan, consulta nuestra <a href="/es/legal#privacy">Política de privacidad</a>.</p>
+  </section>
+
+  <section>
+    <h3>Aviso: no somos un banco</h3>
+    <p>TipPal <strong>no es un banco</strong>. TipPal no es un transmisor de dinero autorizado de forma independiente y no ofrece cuentas de depósito aseguradas por la FDIC. Los fondos custodiados en la plataforma no son depósitos bancarios ni están asegurados por la FDIC ni por ningún organismo gubernamental. TipPal es una plataforma tecnológica que facilita el procesamiento de pagos entre usuarios a través de nuestro procesador de pagos, Stripe, Inc.</p>
+    <p>Esta estructura significa que las protecciones que aplican a las cuentas bancarias (como el seguro de depósito de la FDIC) <strong>no</strong> aplican al saldo mostrado en tu app de TipPal. Consulta nuestros <a href="/es/legal">Términos de servicio y Política de privacidad</a> para la descripción legal completa del Servicio.</p>
+  </section>
+
+  <section>
+    <h3>Reportar un problema de seguridad</h3>
+    <p>Si crees que encontraste una vulnerabilidad de seguridad o sospechas de actividad fraudulenta en tu cuenta, contáctanos de inmediato en <a href="mailto:info@tippalcorp.com">info@tippalcorp.com</a>. Para soporte general, escribe a <a href="mailto:support@tippalcorp.com">support@tippalcorp.com</a>.</p>
+  </section>
+</StaticPageLayout>

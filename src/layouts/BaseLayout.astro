@@ -1,17 +1,44 @@
 ---
 import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  ogType?: string;
+  lang?: string;
+  hreflang?: Record<string, string>;
+}
+
+const {
+  title = "TipPal — Gratitude is human. No pressure.",
+  description = "TipPal is the easiest way to send gratitude in person with Tap to Pay. The first app made exclusively for showing appreciation to the people who make your day.",
+  ogImage = "/og.png",
+  canonicalURL,
+  ogType = "website",
+  lang = "en",
+  hreflang,
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://www.tippalcorp.com");
+const canonPath = canonicalURL ?? Astro.url.pathname;
+const canonicalAbs = new URL(canonPath, site).toString();
+const ogImageAbs = new URL(ogImage, site).toString();
+
+const hreflangEntries = hreflang
+  ? Object.entries(hreflang)
+  : [];
+const xDefaultURL = hreflang?.en ?? canonPath;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TipPal — Gratitude is human. No pressure.</title>
-    <meta
-      name="description"
-      content="TipPal is the easiest way to send gratitude in person with Tap to Pay. The first app made exclusively for showing appreciation to the people who make your day."
-    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -28,8 +55,29 @@ import "../styles/global.css";
       rel="stylesheet"
     />
 
+    <!-- Canonical -->
+    {canonicalURL && <link rel="canonical" href={canonicalAbs} />}
 
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:url" content={canonicalAbs} />
+    <meta property="og:type" content={ogType} />
 
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <!-- hreflang alternates -->
+    {hreflangEntries.map(([hl, url]) => (
+      <link rel="alternate" hreflang={hl} href={new URL(url, site).toString()} />
+    ))}
+    {hreflang && (
+      <link rel="alternate" hreflang="x-default" href={new URL(xDefaultURL, site).toString()} />
+    )}
   </head>
   <body>
     <div style="overflow-x: clip">

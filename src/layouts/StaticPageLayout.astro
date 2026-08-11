@@ -1,0 +1,240 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { t } from "../i18n/t";
+
+interface Props {
+  /** Primary page heading (<h1>) and default <title> when seoTitle is omitted. */
+  title: string;
+  /** Override for the <title> tag when it should differ from the visible h1. */
+  seoTitle?: string;
+  /** SEO meta description. */
+  description?: string;
+  /** OG/Twitter image path. Defaults to /og.png. */
+  ogImage?: string;
+  /** Canonical URL path. */
+  canonicalURL?: string;
+  /** Open Graph type. Defaults to "website". */
+  ogType?: string;
+  /** <html lang> attribute. Defaults to "en". */
+  lang?: string;
+  /** hreflang alternates, e.g. { en: "/legal", es: "/es/legal" }. */
+  hreflang?: Record<string, string>;
+  /** "Last updated:" date string shown under the company. */
+  lastUpdated?: string;
+  /** Company line. Defaults to "TipPal Corp". */
+  company?: string;
+  /** Whether to render the "Last updated:" line. Defaults to true. */
+  showLastUpdated?: boolean;
+}
+
+const {
+  title,
+  seoTitle,
+  description,
+  ogImage = "/og.png",
+  canonicalURL,
+  ogType = "website",
+  lang = "en",
+  hreflang,
+  lastUpdated,
+  company = "TipPal Corp",
+  showLastUpdated = true,
+} = Astro.props;
+
+const pageTitle = seoTitle ?? title;
+const lastUpdatedLabel = t(lang, "chrome.lastUpdated");
+const companyLabel = company;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  ogImage={ogImage}
+  canonicalURL={canonicalURL}
+  ogType={ogType}
+  lang={lang}
+  hreflang={hreflang}
+>
+  <div class="legal">
+    <!-- Minimal header -->
+    <header class="legal__head">
+      <a href="/" class="legal__logo">
+        <img src="/assets/logo.png" alt="TipPal" height="42" />
+      </a>
+    </header>
+
+    <!-- Document header -->
+    <div class="legal__doc-header">
+      <h1>{title}</h1>
+      <p><strong>{companyLabel}</strong></p>
+      {showLastUpdated && lastUpdated && (
+        <p><strong>{lastUpdatedLabel}</strong> {lastUpdated}</p>
+      )}
+      <slot name="doc-meta" />
+    </div>
+
+    <slot />
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .legal {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 28px 28px 96px;
+    color: var(--tippal-text);
+  }
+
+  /* ── Header ── */
+  .legal__head {
+    display: flex;
+    align-items: center;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--tippal-border-light);
+    margin-bottom: 48px;
+  }
+  .legal__logo img {
+    height: 42px;
+    display: block;
+  }
+
+  /* ── Part titles (legal doc) ── */
+  .legal__part {
+    margin-bottom: 56px;
+  }
+  .legal__part-title {
+    margin: 0 0 32px;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(24px, 2.8vw, 32px);
+    color: var(--tippal-secondary);
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--tippal-secondary-light);
+  }
+
+  /* ── Generic content sections (slotted) ── */
+  .legal section {
+    margin-bottom: 32px;
+  }
+  .legal section:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal h3 {
+    margin: 0 0 12px;
+    font-weight: 800;
+    font-size: 19px;
+    color: var(--tippal-accent);
+  }
+  .legal h4 {
+    margin: 16px 0 8px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--tippal-text);
+  }
+
+  .legal p {
+    margin: 0 0 12px;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--tippal-text-secondary);
+  }
+
+  .legal ul, .legal ol {
+    margin: 0 0 16px;
+    padding-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .legal li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--tippal-text-secondary);
+  }
+
+  .legal strong {
+    color: var(--tippal-accent);
+  }
+
+  /* ── Document header (after generics so it wins on equal specificity) ── */
+  .legal__doc-header {
+    margin-bottom: 56px;
+  }
+  .legal__doc-header h1 {
+    margin: 0 0 20px;
+    font-family: var(--tippal-font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 3.6vw, 40px);
+    color: var(--tippal-accent);
+    line-height: 1.15;
+  }
+  .legal__doc-header p {
+    margin: 6px 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--tippal-text-secondary);
+  }
+
+  /* ── FAQ <details> ── */
+  .legal details {
+    margin-bottom: 24px;
+    border: 1px solid var(--tippal-border-light);
+    border-radius: 12px;
+    background: #fff;
+  }
+  .legal details summary {
+    cursor: pointer;
+    padding: 16px 18px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--tippal-accent);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .legal details summary::-webkit-details-marker {
+    display: none;
+  }
+  .legal details summary::before {
+    content: "+";
+    font-weight: 800;
+    color: var(--tippal-secondary);
+    width: 1.2em;
+    display: inline-block;
+  }
+  .legal details[open] summary::before {
+    content: "−";
+  }
+  .legal details[open] summary {
+    border-bottom: 1px solid var(--tippal-border-light);
+  }
+  .legal details .faq__answer {
+    padding: 16px 18px;
+  }
+  .legal details .faq__answer p {
+    margin: 0 0 12px;
+  }
+  .legal details .faq__answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Section anchor links ── */
+  .legal a {
+    color: var(--tippal-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .legal a:hover {
+    color: var(--tippal-primary-dark);
+  }
+
+  /* ── Focus indicator (WCAG AA) ── */
+  .legal a:focus-visible,
+  .legal details summary:focus-visible {
+    outline: 2px solid var(--tippal-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+</style>
