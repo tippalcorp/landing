@@ -1,6 +1,6 @@
 {
-  "name": "Tippal",
-  "short_name": "Tippal",
+  "name": "TipPal",
+  "short_name": "TipPal",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

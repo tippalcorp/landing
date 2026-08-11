@@ -1,0 +1,56 @@
+---
+import StaticPageLayout from "../layouts/StaticPageLayout.astro";
+---
+
+<StaticPageLayout
+  title="Security"
+  seoTitle="TipPal — Security"
+  description="How TipPal protects your information and payments: Stripe payment processing, custody model, encryption, identity verification (KYC), and our not-a-bank disclaimer."
+  lastUpdated="August 10, 2026"
+  canonicalURL="/security"
+  hreflang={{ en: "/security", es: "/es/security" }}
+>
+  <section>
+    <p>Security is central to how TipPal is built. This page explains plainly how your payments are processed, how your balance is held, how we protect your information, and what role identity verification plays.</p>
+  </section>
+
+  <section>
+    <h3>Stripe payment processing</h3>
+    <p>TipPal does not move money by itself. Payments are processed by <strong>Stripe, Inc.</strong>, a registered payment processor used by thousands of companies worldwide. TipPal operates as a Payment Facilitator: your charges are processed through Stripe under TipPal's processing credentials, not under an individual bank account of your own. This means your card data is handled by Stripe's audited, PCI-compliant infrastructure, not stored by TipPal directly.</p>
+    <p>For more detail, see Stripe's own security documentation and our <a href="/legal#terms">Terms of Service</a>.</p>
+  </section>
+
+  <section>
+    <h3>Custody model: credit balance, not a bank deposit</h3>
+    <p>The balance you see in the TipPal app is an <strong>accounting record of credit</strong> — a pending settlement in your favor — not a bank deposit, a securities account, or an insured financial product.</p>
+    <ul>
+      <li>Funds corresponding to your balance are processed and held through Stripe under TipPal's processing credentials until applicable verification requirements are completed.</li>
+      <li>TipPal maintains sufficient operating reserves to support the availability of funds corresponding to authorized withdrawals.</li>
+      <li>TipPal does not pay interest on balances held on the platform.</li>
+      <li>Internal transfers between TipPal users are accounting adjustments, not new external financial transactions.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Encryption</h3>
+    <p>TipPal uses industry-standard encryption to protect data in transit (between your device and our servers) and at rest. Authentication tokens, identityverification documents, and payment references are handled using Stripe's and our infrastructure providers' security controls. While no system is completely secure, we follow recognized technical and organizational measures to safeguard your information.</p>
+  </section>
+
+  <section>
+    <h3>Identity verification (KYC) for withdrawals</h3>
+    <p>Before you can withdraw (cash out) your balance to an external bank account or card, TipPal must complete identity verification (KYC). This is required by U.S. anti-money laundering laws, including the Bank Secrecy Act (31 U.S.C. &sect; 5311 et seq.) and its implementing regulations (31 C.F.R. Chapter X).</p>
+    <p>TipPal may withhold, delay, suspend, or reject withdrawal requests while KYC is incomplete or during compliance reviews. KYC generally is not required for internal transfers between TipPal users unless one party withdraws to an external bank account or card.</p>
+    <p>For details on what data we collect for verification and how long it is retained, see our <a href="/legal#privacy">Privacy Policy</a>.</p>
+  </section>
+
+  <section>
+    <h3>Not a bank disclaimer</h3>
+    <p>TipPal is <strong>not a bank</strong>. TipPal is not an independently authorized money transmitter and does not offer FDIC-insured deposit accounts. Funds held on the platform are not bank deposits and are not insured by the FDIC or any government agency. TipPal is a technology platform that facilitates payment processing between users through our payment processor, Stripe, Inc.</p>
+    <p>This structure means the protections that apply to bank accounts (such as FDIC deposit insurance) do <strong>not</strong> apply to the balance shown in your TipPal app. See our <a href="/legal">Terms of Service and Privacy Policy</a> for the full legal description of the Service.</p>
+  </section>
+
+  <section>
+    <h3>Reporting a security concern</h3>
+    <p>If you believe you have found a security vulnerability or you suspect fraudulent activity on your account, contact us immediately at <a href="mailto:info@tippalcorp.com">info@tippalcorp.com</a>. For general support, email <a href="mailto:support@tippalcorp.com">support@tippalcorp.com</a>.</p>
+  </section>
+</StaticPageLayout>
