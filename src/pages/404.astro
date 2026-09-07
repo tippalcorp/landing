@@ -1,0 +1,28 @@
+---
+import StaticPageLayout from "../layouts/StaticPageLayout.astro";
+
+const triedPath = Astro.url.pathname;
+---
+
+<StaticPageLayout
+  title="Page not found"
+  seoTitle="TipPal — Page not found"
+  description="We can't find the page you're looking for. The link may be broken, or the page may have moved."
+  canonicalURL="/404"
+  showLastUpdated={false}
+  hreflang={{ en: "/404", es: "/es/404" }}
+>
+  <section>
+    <p>We can't find the page you're looking for. The link may be broken, or the page may have moved.</p>
+    <p><strong>You tried to visit:</strong> <code>{triedPath}</code></p>
+  </section>
+
+  <section>
+    <h3>Helpful links</h3>
+    <ul>
+      <li><a href="/">Home</a> — back to the TipPal landing page.</li>
+      <li><a href="/faq">Frequently asked questions</a> — answers to common questions about TipPal.</li>
+      <li><a href="/contact">Contact us</a> — reach the TipPal team.</li>
+    </ul>
+  </section>
+</StaticPageLayout>

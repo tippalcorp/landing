@@ -1,0 +1,30 @@
+---
+import StaticPageLayout from "../../layouts/StaticPageLayout.astro";
+
+const triedPath = Astro.url.pathname;
+---
+
+<!-- TODO: human review ES copy -->
+<StaticPageLayout
+  title="Página no encontrada"
+  seoTitle="TipPal — Página no encontrada"
+  description="No encontramos la página que buscas. El enlace puede estar roto o la página se ha movido."
+  canonicalURL="/es/404"
+  lang="es"
+  showLastUpdated={false}
+  hreflang={{ en: "/404", es: "/es/404" }}
+>
+  <section>
+    <p>No encontramos la página que buscas. El enlace puede estar roto o la página se ha movido.</p>
+    <p><strong>Intentaste visitar:</strong> <code>{triedPath}</code></p>
+  </section>
+
+  <section>
+    <h3>Enlaces útiles</h3>
+    <ul>
+      <li><a href="/es">Inicio</a> — vuelve a la página principal de TipPal.</li>
+      <li><a href="/es/faq">Preguntas frecuentes</a> — respuestas a preguntas comunes sobre TipPal.</li>
+      <li><a href="/es/contact">Contáctanos</a> — comunícate con el equipo de TipPal.</li>
+    </ul>
+  </section>
+</StaticPageLayout>

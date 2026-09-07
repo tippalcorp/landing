@@ -55,5 +55,10 @@
   "legal.seoTitle": "TipPal — Términos de servicio y Política de privacidad",
   "legal.description": "Términos de servicio y Política de privacidad de TipPal Corp: cuenta y saldo, procesamiento de pagos con Stripe, requisitos KYC/AML, retención de datos, derechos de privacidad y canales de contacto.",
   "legal.part.terms": "Parte I — Términos de servicio",
-  "legal.part.privacy": "Parte II — Política de privacidad"
+  "legal.part.privacy": "Parte II — Política de privacidad",
+
+  "notfound.title": "Página no encontrada",
+  "notfound.seoTitle": "TipPal — Página no encontrada",
+  "notfound.description": "No encontramos la página que buscas. El enlace puede estar roto o la página se ha movido.",
+  "notfound.section.helpful": "Enlaces útiles"
 }
