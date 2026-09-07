@@ -66,22 +66,36 @@ const BREAKS = [0.40, 0.58, 0.74, 0.88, 1.00];
       // Breakpoints encoded as data for the script
       const breaks = [0.40, 0.58, 0.74, 0.88, 1.00];
 
-      // First character + its caption active on load
+      // Match CSS initial state: first card active on load.
       chars[0].classList.add('is-active');
       captions[0].classList.add('is-visible');
 
-      function update() {
-        const sy = window.scrollY;
-        const stop = section.offsetTop;
-        const sh = section.offsetHeight;
-        const vh = window.innerHeight;
-        const p = Math.max(0, Math.min(1, (sy + vh - stop) / sh));
+      // rAF-throttled scroll handler with skip-no-change + cached layout.
+      // Avoids redundant classList toggles within a breakpoint range and
+      // bounds DOM work to once per frame (Safari scroll-jank fix).
+      let ticking = false;
+      let lastIdx = 0;
+      const layout = { stop: 0, sh: 0, vh: window.innerHeight };
 
-        // Find which breakpoint range p falls into
+      const measure = () => {
+        layout.stop = section.offsetTop;
+        layout.sh = section.offsetHeight;
+        layout.vh = window.innerHeight;
+      };
+
+      const update = () => {
+        ticking = false;
+        const { stop, sh, vh } = layout;
+        const p = Math.max(0, Math.min(1, (window.scrollY + vh - stop) / sh));
+
         let idx = 0;
         for (let i = 0; i < breaks.length; i++) {
           if (p <= breaks[i]) { idx = i; break; }
         }
+
+        // Skip DOM mutation when the active character hasn't changed.
+        if (idx === lastIdx) return;
+        lastIdx = idx;
 
         chars.forEach((el, i) => {
           el.classList.toggle('is-active', i === idx);
@@ -90,10 +104,19 @@ const BREAKS = [0.40, 0.58, 0.74, 0.88, 1.00];
         captions.forEach((el, i) => {
           el.classList.toggle('is-visible', i === idx);
         });
-      }
+      };
 
-      window.addEventListener('scroll', update, { passive: true });
-      requestAnimationFrame(() => requestAnimationFrame(update));
+      const onScroll = () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      };
+
+      measure();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => { measure(); onScroll(); }, { passive: true });
+      requestAnimationFrame(update);
     }
   }
 </script>
@@ -145,29 +168,26 @@ const BREAKS = [0.40, 0.58, 0.74, 0.88, 1.00];
     background: #fff;
     box-shadow: var(--tippal-shadow-card);
     opacity: 0.75;
-    filter: grayscale(0.2);
     transform: scale(0.92);
     transition:
       opacity 0.5s var(--tippal-ease-settle),
-      filter 0.5s var(--tippal-ease-settle),
       transform 0.5s var(--tippal-ease-settle),
       box-shadow 0.5s var(--tippal-ease-settle);
   }
 
   .hero-scroll__char.is-seen {
     opacity: 1;
-    filter: grayscale(0);
     transform: scale(1);
   }
 
   .hero-scroll__char.is-active {
     opacity: 1;
-    filter: grayscale(0);
     transform: scale(1.08);
     box-shadow:
       0 20px 50px -16px rgba(48, 0, 106, 0.35),
       0 0 0 4px rgba(138, 43, 226, 0.22);
     z-index: 1;
+    will-change: transform;
     animation: kf-char-spotlight 2.6s ease-in-out infinite;
   }
 
