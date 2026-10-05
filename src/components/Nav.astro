@@ -1,15 +1,24 @@
 ---
-import HeartIcon from "./HeartIcon.astro";
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const isSpanish = language === "es";
+const copy = isSpanish
+  ? { label: "Navegación principal", how: "Cómo funciona", why: "Por qué TipPal", download: "Descarga la app", language: "English", home: "/es", alternate: "/" }
+  : { label: "Main navigation", how: "How it works", why: "Why TipPal", download: "Get the app", language: "Español", home: "/", alternate: "/es" };
 ---
 
-<nav class="nav">
-  <a href="#top" class="nav__logo">
+<nav class="nav" aria-label={copy.label}>
+  <a href={copy.home} class="nav__logo">
     <img src="/assets/logo.png" alt="TipPal" height="44" />
   </a>
   <div class="nav__links">
-    <a href="#how" class="nav__link">How it works</a>
-    <a href="#why" class="nav__link">Why TipPal</a>
-    <a href="#get" class="nav__cta">Get the app</a>
+    <a href={isSpanish ? "#como" : "#how"} class="nav__link">{copy.how}</a>
+    <a href={isSpanish ? "#por-que" : "#why"} class="nav__link">{copy.why}</a>
+    <a href={isSpanish ? "#descargar" : "#get"} class="nav__cta">{copy.download}</a>
+    <a href={copy.alternate} class="nav__language" hreflang={isSpanish ? "en" : "es"} lang={isSpanish ? "en" : "es"}>{copy.language}</a>
   </div>
 </nav>
 
@@ -67,9 +76,35 @@ import HeartIcon from "./HeartIcon.astro";
     transform: scale(1.03);
   }
 
+  .nav__language {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px;
+    border: 1px solid var(--tippal-secondary-light);
+    border-radius: 9999px;
+    color: var(--tippal-accent);
+    font-size: 13px;
+  }
+  .nav__language:hover {
+    background: #fff;
+    color: var(--tippal-primary-dark);
+  }
+  .nav__language:focus-visible,
+  .nav__cta:focus-visible,
+  .nav__link:focus-visible {
+    outline: 3px solid var(--tippal-primary);
+    outline-offset: 3px;
+  }
+
   @media (max-width: 480px) {
+    .nav { padding: 12px 16px; }
+    .nav__links { gap: 10px; }
     .nav__link {
       display: none;
     }
+    .nav__cta { padding-inline: 14px; font-size: 13px; }
+    .nav__language { min-height: 38px; padding-inline: 11px; }
   }
 </style>

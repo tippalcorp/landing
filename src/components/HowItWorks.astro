@@ -1,37 +1,37 @@
 ---
-const steps = [
-  {
-    num: "01",
-    title: "Add your card",
-    body: "Gratitude goes straight from your card — or from your balance once you receive appreciation. Nothing to pre-load.",
-    chipBg: "var(--tippal-success-light)",
-    chipFg: "var(--tippal-success-dark)",
-    range: "entry 0% cover 25%",
-  },
-  {
-    num: "02",
-    title: "Send gratitude",
-    body: "Pick a person, choose an amount, add a personal note, and pay with Tap to Pay. Tap send.",
-    chipBg: "var(--tippal-heart-soft)",
-    chipFg: "var(--tippal-heart)",
-    range: "entry 0% cover 32%",
-  },
-  {
-    num: "03",
-    title: "They get it instantly",
-    body: "Their balance grows with every gift received — they cash out whenever they like.",
-    chipBg: "var(--tippal-primary-light)",
-    chipFg: "var(--tippal-primary)",
-    range: "entry 0% cover 40%",
-  },
-];
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const copy = language === "es"
+  ? {
+      title: "Tres pasos para agradecer",
+      subtitle: "Sin terminales ni pantallas incómodas. Solo personas.",
+      steps: [
+        { title: "Añade una tarjeta", body: "Envía desde tu tarjeta. Cuando recibas gratitud, podrás usar tu saldo disponible.", chipBg: "var(--tippal-success-light)", chipFg: "var(--tippal-success-dark)" },
+        { title: "Envía gratitud", body: "Elige a una persona, selecciona el monto, añade una nota y paga con Tap to Pay.", chipBg: "var(--tippal-heart-soft)", chipFg: "var(--tippal-heart)" },
+        { title: "La recibe en su saldo", body: "La persona puede consultar su saldo y las opciones de retiro disponibles en la app.", chipBg: "var(--tippal-primary-light)", chipFg: "var(--tippal-primary)" },
+      ],
+    }
+  : {
+      title: "Three taps to thank you",
+      subtitle: "No terminals, no awkward screens. Just people.",
+      steps: [
+        { title: "Add your card", body: "Send from your card. Once you receive gratitude, you can use your available balance.", chipBg: "var(--tippal-success-light)", chipFg: "var(--tippal-success-dark)" },
+        { title: "Send gratitude", body: "Pick a person, choose an amount, add a personal note, and pay with Tap to Pay.", chipBg: "var(--tippal-heart-soft)", chipFg: "var(--tippal-heart)" },
+        { title: "It reaches their balance", body: "They can check their balance and the withdrawal options available in the app.", chipBg: "var(--tippal-primary-light)", chipFg: "var(--tippal-primary)" },
+      ],
+    };
+
+const steps = copy.steps.map((step, i) => ({ ...step, num: `0${i + 1}` }));
 ---
 
-<section id="how" class="how">
+<section id={language === "es" ? "como" : "how"} class="how">
   <div class="how__inner">
     <header class="how__header">
-      <h2 class="how__title">Three taps to thank you</h2>
-      <p class="how__sub">No terminals, no awkward screens. Just people.</p>
+      <h2 class="how__title">{copy.title}</h2>
+      <p class="how__sub">{copy.subtitle}</p>
     </header>
     <div class="how__cards">
       {steps.map((step, i) => (

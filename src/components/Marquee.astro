@@ -1,12 +1,19 @@
 ---
 import HeartIcon from "./HeartIcon.astro";
 
-const roles = ["Baristas", "Valets", "Drivers", "Housekeepers", "Creators", "Servers", "Movers", "Guides"];
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const roles = language === "es"
+  ? ["Baristas", "Valets", "Conductores", "Personal de limpieza", "Creadores", "Meseros", "Personal de mudanzas", "Guías"]
+  : ["Baristas", "Valets", "Drivers", "Housekeepers", "Creators", "Servers", "Movers", "Guides"];
 // Render twice for seamless -50% loop
 const items = [...roles, ...roles];
 ---
 
-<div class="marquee">
+<div class="marquee" aria-hidden="true">
   <div class="marquee__track">
     {items.map((role, i) => (
       <span class="marquee__item">

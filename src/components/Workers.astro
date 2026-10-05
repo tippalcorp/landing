@@ -1,14 +1,21 @@
-<section id="why" class="workers">
+---
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const copy = language === "es"
+  ? { title: "Hecho para quienes te hacen el día", description: "Baristas, valets, conductores, personal de hotel, creadores y todas las personas a quienes queremos agradecer.", alt: "Trabajadores de servicio recibiendo muestras de gratitud" }
+  : { title: "Made for the people who make your day", description: "Baristas, valets, drivers, hotel staff, creators — and everyone who wants to show them real recognition.", alt: "Service workers receiving gratitude" };
+---
+
+<section id={language === "es" ? "personas" : "why"} class="workers">
   <div class="workers__inner">
-    <h2 class="workers__title">
-      Made for the people who make your day
-    </h2>
-    <p class="workers__desc">
-      Baristas, valets, drivers, housekeepers, creators — and everyone who wants to show them real recognition.
-    </p>
+    <h2 class="workers__title">{copy.title}</h2>
+    <p class="workers__desc">{copy.description}</p>
     <img
       src="/assets/workers.png"
-      alt="Service workers receiving gratitude"
+      alt={copy.alt}
       class="workers__img"
       loading="lazy"
     />

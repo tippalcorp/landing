@@ -5,42 +5,37 @@ import HeartIcon from "./HeartIcon.astro";
 // Computes the alternate-locale URL from the current path.
 const path = Astro.url.pathname;
 const isSpanish = path.startsWith("/es");
-let altHref: string;
-let toggleLabel: string;
-if (isSpanish) {
-  // /es/legal -> /legal ; /es -> /
-  altHref = path.replace(/^\/es\/?/, "/") || "/";
-  toggleLabel = "English";
-} else {
-  // /legal -> /es/legal ; / -> /es
-  altHref = path === "/" ? "/es" : "/es" + path;
-  toggleLabel = "Español";
-}
+const altHref = isSpanish ? path.replace(/^\/es\/?/, "/") || "/" : path === "/" ? "/es" : "/es" + path;
+const toggleLabel = isSpanish ? "English" : "Español";
+const copy = isSpanish
+  ? { nav: "Pie de página", contact: "Contacto", faq: "Preguntas frecuentes", security: "Seguridad", privacy: "Privacidad", terms: "Términos", delete: "Eliminar cuenta", made: "Hecho con", availability: "Disponible en EE. UU." }
+  : { nav: "Footer", contact: "Contact", faq: "FAQ", security: "Security", privacy: "Privacy", terms: "Terms", delete: "Delete account", made: "Made with", availability: "Available in the US" };
+const localePath = (enPath: string) => isSpanish ? `/es${enPath === "/" ? "" : enPath}` : enPath;
 ---
 
 <footer class="footer">
   <div class="footer__inner">
     <img src="/assets/logo.png" alt="TipPal" height="38" class="footer__logo" />
-    <nav class="footer__links" aria-label="Footer">
-      <a href="/contact">Contact</a>
-      <a href="/faq">FAQ</a>
-      <a href="/security">Security</a>
-      <a href="/legal#privacy">Privacy</a>
-      <a href="/legal#terms">Terms</a>
-      <a href="/delete-account">Delete account</a>
+    <nav class="footer__links" aria-label={copy.nav}>
+      <a href={localePath("/contact")}>{copy.contact}</a>
+      <a href={localePath("/faq")}>{copy.faq}</a>
+      <a href={localePath("/security")}>{copy.security}</a>
+      <a href={localePath("/legal#privacy")}>{copy.privacy}</a>
+      <a href={localePath("/legal#terms")}>{copy.terms}</a>
+      <a href={localePath("/delete-account")}>{copy.delete}</a>
     </nav>
     <!-- Conditional social slot: renders nothing when no content is provided. -->
     <slot name="social" />
     <div class="footer__made">
-      Made with
+      {copy.made}
       <HeartIcon size={14} color="var(--tippal-heart)" />
-      gratitude
+      {isSpanish ? "gratitud" : "gratitude"}
     </div>
     <a class="footer__lang" href={altHref} hreflang={isSpanish ? "en" : "es"} lang={isSpanish ? "en" : "es"}>
       {toggleLabel}
     </a>
-    <span class="footer__us" title="Currently available in the US">
-      🇺🇸 Available in the US
+    <span class="footer__us" title={isSpanish ? "Disponible actualmente en Estados Unidos" : "Currently available in the US"}>
+      🇺🇸 {copy.availability}
     </span>
   </div>
 </footer>
