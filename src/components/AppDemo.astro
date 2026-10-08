@@ -1,13 +1,54 @@
 ---
 import BalanceCard from "./BalanceCard.astro";
 import TransactionItem from "./TransactionItem.astro";
+
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const copy = language === "es"
+  ? {
+      title: "Hecho para agradecer",
+      sample: "Pantalla de ejemplo · actividad ilustrativa",
+      tapTitle: "Tap to Pay, en persona",
+      tapDescription: "Acerca tu teléfono al de la otra persona y envía tu agradecimiento. También puedes usar Apple Pay, Google Pay, TipPal ID y códigos QR.",
+      joinTitle: "Regístrate con tu correo",
+      joinDescription: "Crea una cuenta con tu correo electrónico y empieza a recibir muestras de gratitud.",
+      balance: "Gratitud recibida",
+      withdraw: "Retirar",
+      activity: "Actividad reciente",
+      sentNote: "El mejor café de la ciudad",
+      rideNote: "Gracias por el viaje",
+      roomNote: "La habitación quedó impecable",
+      today: "Hoy, 2:14 p. m.",
+      morning: "Hoy, 11:02 a. m.",
+      yesterday: "Ayer",
+    }
+  : {
+      title: "Made for thank-yous",
+      sample: "Sample screen · illustrative activity",
+      tapTitle: "Tap to Pay, in person",
+      tapDescription: "Tap your phone to theirs and send your gratitude. You can also use Apple Pay, Google Pay, TipPal ID, and QR codes.",
+      joinTitle: "Just an email to join",
+      joinDescription: "Create an account with your email and start receiving appreciation.",
+      balance: "Gratitude received",
+      withdraw: "Withdraw",
+      activity: "Recent activity",
+      sentNote: "Best latte in town",
+      rideNote: "Thanks for the ride",
+      roomNote: "Room was spotless",
+      today: "Today, 2:14 PM",
+      morning: "Today, 11:02 AM",
+      yesterday: "Yesterday",
+    };
 ---
 
 <section class="demo">
   <div class="demo__grid">
     <!-- Left column -->
     <div class="demo__left">
-      <h2 class="demo__title">Made for thank-yous</h2>
+      <h2 class="demo__title">{copy.title}</h2>
 
       <div class="demo__card">
         <div class="demo__feature">
@@ -18,9 +59,9 @@ import TransactionItem from "./TransactionItem.astro";
                 <path d="M10.5 6.5a11 11 0 0 1 0 11" />
                 <path d="M14.5 4.5a14.5 14.5 0 0 1 0 15" />
               </svg>
-              Tap to Pay, in person
+              {copy.tapTitle}
             </div>
-            <div class="demo__feature-desc">Tap your phone to theirs and your gratitude is on its way with Tap to Pay. Apple Pay, Google Pay, TipPal ID, QR codes — however you connect.</div>
+            <div class="demo__feature-desc">{copy.tapDescription}</div>
           </div>
         </div>
       </div>
@@ -33,9 +74,9 @@ import TransactionItem from "./TransactionItem.astro";
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="m3.5 7 8.5 6 8.5-6" />
               </svg>
-              Just an email to join
+              {copy.joinTitle}
             </div>
-            <div class="demo__feature-desc">Sign up with your email and start receiving appreciation right away. No forms, no waiting.</div>
+            <div class="demo__feature-desc">{copy.joinDescription}</div>
           </div>
         </div>
       </div>
@@ -43,17 +84,18 @@ import TransactionItem from "./TransactionItem.astro";
 
     <!-- Right column: phone mockup -->
     <div class="demo__right">
+        <p class="demo__sample">{copy.sample}</p>
       <div class="demo__phone">
         <!-- Notch -->
         <div class="demo__notch"><span></span></div>
         <!-- Balance card -->
-        <BalanceCard balance="$128.50" />
+          <BalanceCard balance="$128.50" caption={copy.balance} actionLabel={copy.withdraw} />
         <!-- Recent activity -->
         <div class="demo__activity">
-          <div class="demo__activity-label">Recent activity</div>
-          <TransactionItem type="tip_sent" amount="$5.00" name="Maya R." note="Best latte in town" date="Today, 2:14 PM" />
-          <TransactionItem type="tip_received" amount="+$12.00" name="Carlos R." note="Thanks for the ride" date="Today, 11:02 AM" />
-          <TransactionItem type="tip_received" amount="+$8.00" name="Ana P." note="Room was spotless" date="Yesterday" isLast />
+          <div class="demo__activity-label">{copy.activity}</div>
+          <TransactionItem type="tip_sent" amount="$5.00" name="Maya R." note={copy.sentNote} date={copy.today} language={language} />
+          <TransactionItem type="tip_received" amount="+$12.00" name="Carlos R." note={copy.rideNote} date={copy.morning} language={language} />
+          <TransactionItem type="tip_received" amount="+$8.00" name="Ana P." note={copy.roomNote} date={copy.yesterday} language={language} isLast />
         </div>
       </div>
     </div>
@@ -111,8 +153,22 @@ import TransactionItem from "./TransactionItem.astro";
     margin-top: 4px;
   }
   .demo__right {
+    position: relative;
     display: flex;
     justify-content: center;
+  }
+  .demo__sample {
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    width: max-content;
+    max-width: 100%;
+    margin: 0;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, .82);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
   }
   .demo__phone {
     width: min(380px, 88vw);

@@ -3,29 +3,36 @@
 // 350dvh runway: characters reveal one by one with non-linear timing
 // (first character stays longer). Each active character shows an
 // animated feature caption.
-const CHARS = [
-  { src: "/assets/barista.webp", alt: "A barista at work", w: 330, h: 422,
-    label: "Baristas",
-    feature: "Receive gratitude after every shift — no cash, no terminals." },
-  { src: "/assets/valet.webp", alt: "A hotel valet", w: 280, h: 420,
-    label: "Valets",
-    feature: "Your phone is all you need. Gratitude arrives before the car does." },
-  { src: "/assets/driver.webp", alt: "A rideshare driver", w: 398, h: 376,
-    label: "Drivers",
-    feature: "Every ride, every thank-you — straight to your balance, no middleman." },
-  { src: "/assets/housekeeper.webp", alt: "A hotel housekeeper", w: 285, h: 417,
-    label: "Housekeeping",
-    feature: "Guests can finally say thank you without carrying cash." },
-  { src: "/assets/creator.webp", alt: "A content creator", w: 345, h: 444,
-    label: "Creators",
-    feature: "Your audience supports you directly — zero platform fees, full gratitude." },
-];
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const copy = {
+  en: [
+    { src: "/assets/barista.webp", alt: "A barista at work", w: 330, h: 422, label: "Baristas", feature: "Receive a digital thank-you after a shift — no cash needed." },
+    { src: "/assets/valet.webp", alt: "A hotel valet", w: 280, h: 420, label: "Valets", feature: "Guests can send a thank-you without looking for cash." },
+    { src: "/assets/driver.webp", alt: "A rideshare driver", w: 398, h: 376, label: "Drivers", feature: "A digital way to show appreciation after a ride." },
+    { src: "/assets/housekeeper.webp", alt: "A hotel housekeeper", w: 285, h: 417, label: "Housekeeping", feature: "Guests can say thank you even when they are not carrying cash." },
+    { src: "/assets/creator.webp", alt: "A content creator", w: 345, h: 444, label: "Creators", feature: "Let your audience send support, with applicable charges shown before they send." },
+  ],
+  es: [
+    { src: "/assets/barista.webp", alt: "Una barista trabajando", w: 330, h: 422, label: "Baristas", feature: "Recibe un agradecimiento digital al terminar el turno, sin efectivo." },
+    { src: "/assets/valet.webp", alt: "Un valet de hotel", w: 280, h: 420, label: "Valets", feature: "Los huéspedes pueden agradecerte sin buscar efectivo." },
+    { src: "/assets/driver.webp", alt: "Un conductor de viajes compartidos", w: 398, h: 376, label: "Conductores", feature: "Una forma digital de agradecer después de un viaje." },
+    { src: "/assets/housekeeper.webp", alt: "Una persona de limpieza en un hotel", w: 285, h: 417, label: "Personal de limpieza", feature: "Los huéspedes pueden agradecerte aunque no lleven efectivo." },
+    { src: "/assets/creator.webp", alt: "Una creadora de contenido", w: 345, h: 444, label: "Creadores", feature: "Tu audiencia puede apoyarte; los cargos aplicables se muestran antes de enviar." },
+  ],
+} as const;
+
+const CHARS = copy[language];
+const ariaLabel = language === "es" ? "Personas que pueden recibir gratitud" : "People you can send gratitude to";
 // Non-linear breakpoints: first char gets 40% so the user has time to notice it.
 // Cumulative thresholds: [0.40, 0.58, 0.74, 0.88, 1.00]
 const BREAKS = [0.40, 0.58, 0.74, 0.88, 1.00];
 ---
 
-<section id="heroes" class="hero-scroll" aria-label="People you can send gratitude to">
+<section id="heroes" class="hero-scroll" aria-label={ariaLabel}>
   <div class="hero-scroll__sticky">
     <div class="hero-scroll__inner">
       <!-- Character row -->

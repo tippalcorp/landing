@@ -4,7 +4,6 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
-  ogImage?: string;
   canonicalURL?: string;
   ogType?: string;
   lang?: string;
@@ -14,7 +13,6 @@ interface Props {
 const {
   title = "TipPal — Gratitude is human. No pressure.",
   description = "TipPal is the easiest way to send gratitude in person with Tap to Pay. The first app made exclusively for showing appreciation to the people who make your day.",
-  ogImage = "/og.png",
   canonicalURL,
   ogType = "website",
   lang = "en",
@@ -24,7 +22,6 @@ const {
 const site = Astro.site ?? new URL("https://www.tippalcorp.com");
 const canonPath = canonicalURL ?? Astro.url.pathname;
 const canonicalAbs = new URL(canonPath, site).toString();
-const ogImageAbs = new URL(ogImage, site).toString();
 
 const hreflangEntries = hreflang
   ? Object.entries(hreflang)
@@ -61,15 +58,13 @@ const xDefaultURL = hreflang?.en ?? canonPath;
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImageAbs} />
     <meta property="og:url" content={canonicalAbs} />
     <meta property="og:type" content={ogType} />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageAbs} />
 
     <!-- hreflang alternates -->
     {hreflangEntries.map(([hl, url]) => (

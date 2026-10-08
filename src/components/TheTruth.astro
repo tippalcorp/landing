@@ -1,257 +1,67 @@
-<!-- ────────────────────────────────────────────────
-     The Truth About Gratitude — industry-by-industry breakdown
-     ──────────────────────────────────────────────── -->
+---
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const copy = language === "es"
+  ? {
+      kicker: "Por qué existe TipPal",
+      title: "La gratitud, sin presión",
+      subtitle: "Una forma digital de agradecer en persona, con información clara antes de enviar.",
+      cards: [
+        { title: "Sin efectivo", body: "Envía gratitud con Tap to Pay, TipPal ID o un código QR." },
+        { title: "Tú decides", body: "Elige si quieres enviar una propina y cuánto quieres dar." },
+        { title: "Cargos a la vista", body: "Los cargos aplicables a transacciones, retiros o funciones premium se muestran antes de completar la acción." },
+        { title: "Saldo y retiros", body: "Quien recibe puede consultar su saldo y las opciones de retiro disponibles en la app." },
+      ],
+      ctaTitle: "TipPal es para todos",
+      ctaBody: "Para quienes quieren agradecer y para quienes reciben ese gesto.",
+      ctaTagline: "Porque todos somos TipPal.",
+    }
+  : {
+      kicker: "Why TipPal exists",
+      title: "Gratitude, without the pressure",
+      subtitle: "A digital way to say thanks in person, with clear information before you send.",
+      cards: [
+        { title: "No cash needed", body: "Send gratitude with Tap to Pay, TipPal ID, or a QR code." },
+        { title: "You decide", body: "Choose whether to send a tip and how much you want to give." },
+        { title: "Charges shown up front", body: "Applicable charges for transactions, withdrawals, or premium features are shown before you complete the action." },
+        { title: "Balance and withdrawals", body: "Recipients can check their balance and available withdrawal options in the app." },
+      ],
+      ctaTitle: "TipPal is for everyone",
+      ctaBody: "For everyone who wants to show gratitude and everyone who receives it.",
+      ctaTagline: "Because we're all TipPal.",
+    };
+---
 
 <section id="truth" class="truth">
   <div class="truth__inner">
-
-    <!-- Section header -->
     <header class="truth__header">
-      <p class="truth__kicker">Why TipPal exists</p>
-      <h2 class="truth__title">The Truth About Gratitude</h2>
-      <p class="truth__subtitle">
-        Across every industry, showing gratitude has been turned into a broken transaction. Here's what's really happening — and why we built something better.
-      </p>
+      <p class="truth__kicker">{copy.kicker}</p>
+      <h2 class="truth__title">{copy.title}</h2>
+      <p class="truth__subtitle">{copy.subtitle}</p>
     </header>
 
-    <!-- ═══════════════ RIDESHARE ═══════════════ -->
-    <div class="truth__industry">
-      <div class="truth__industry-head">
-        <span class="truth__emoji" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
-        <h3 class="truth__industry-name">Rideshare Mobile Apps</h3>
-        <p class="truth__industry-tagline">The truth about gratitude</p>
-      </div>
-
-      <div class="truth__columns">
-        <!-- Driver -->
-        <div class="truth__col">
-          <h4 class="truth__col-title">
-            <span class="truth__role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg></span> For the driver
-          </h4>
-          <ol class="truth__list">
-            <li>
-              <strong>Algorithmic manipulation of hourly income</strong>
-              <span>When a customer leaves a gift, the algorithm reduces or stops trip assignments, assuming the driver has already reached the "ideal" hourly income. This effectively turns the driver into an hourly employee, without transparency and without labor rights.</span>
-            </li>
-            <li>
-              <strong>Elimination of the real meaning of gratitude</strong>
-              <span>The gift stops being extra income born of gratitude and becomes a variable controlled by the platform to adjust the driver's earnings.</span>
-            </li>
-            <li>
-              <strong>Anticipated algorithmic manipulation</strong>
-              <span>Platforms use the gift placed in advance to predict and limit the driver's income, ensuring they do not "exceed" the designed hourly earnings.</span>
-            </li>
-            <li>
-              <strong>Emotional instability for the driver</strong>
-              <span>The driver lives in uncertainty, not knowing whether they will receive the full gift, whether it will be reduced, or whether it will be delayed by the system.</span>
-            </li>
-          </ol>
-        </div>
-
-        <!-- Customer -->
-        <div class="truth__col">
-          <h4 class="truth__col-title">
-            <span class="truth__role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg></span> For the customer
-          </h4>
-          <ol class="truth__list">
-            <li>
-              <strong>Absurd pressure on the customer</strong>
-              <span>In many cases, customers are forced to give before the service happens, distorting the real intention of thanking for good work.</span>
-            </li>
-            <li>
-              <strong>Uncertainty about whether the driver will actually receive the promised gift</strong>
-              <span>Many customers do not know if their gift is withheld, adjusted, or reduced after it has been sent.</span>
-            </li>
-            <li>
-              <strong>A feeling of obligation instead of gratitude</strong>
-              <span>Customers feel that if they don't leave a gift, they are considered "bad users," not because of the service, but because of interface pressure.</span>
-            </li>
-          </ol>
-        </div>
-      </div>
+    <div class="truth__grid">
+      {copy.cards.map((card, i) => (
+        <article class={`truth__card truth__card--${i} scroll-reveal`}>
+          <span class="truth__number">0{i + 1}</span>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
     </div>
 
-    <!-- ═══════════════ FOOD SERVICE ═══════════════ -->
-    <div class="truth__industry">
-      <div class="truth__industry-head">
-        <span class="truth__emoji" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/><line x1="7" y1="3" x2="7" y2="9"/><line x1="17" y1="3" x2="17" y2="9"/></svg></span>
-        <h3 class="truth__industry-name">Food Service Industry</h3>
-        <p class="truth__industry-tagline">The truth about gratitude</p>
-      </div>
-
-      <div class="truth__columns">
-        <!-- Client -->
-        <div class="truth__col">
-          <h4 class="truth__col-title">
-            <span class="truth__role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg></span> Client
-          </h4>
-          <ol class="truth__list">
-            <li>
-              <strong>Low base salaries depending on gifts</strong>
-              <span>They feel responsible for completing a salary that should be paid by the restaurant.</span>
-            </li>
-            <li>
-              <strong>Retention or theft of gifts by the restaurant</strong>
-              <span>The client believes they helped the waiter, but in reality the company keeps a percentage.</span>
-            </li>
-            <li>
-              <strong>Unfair distribution (poorly managed pooling)</strong>
-              <span>Their gifts do not reach the waiter who attended them.</span>
-            </li>
-            <li>
-              <strong>Tipflation (gratuity inflation)</strong>
-              <span>Screens suggest increasingly higher amounts (20–30% or more). They feel pressured to pay higher amounts even if the service was basic.</span>
-            </li>
-            <li>
-              <strong>Social pressure and manipulation at the point of payment</strong>
-              <span>The tablet turns towards them and makes them feel obligated to leave a gift. Embarrassment or discomfort if they do not want to give or want to leave less.</span>
-            </li>
-            <li>
-              <strong>Deterioration of gratitude</strong>
-              <span>Gratitude stops being a natural expression and becomes an uncomfortable obligation.</span>
-            </li>
-          </ol>
-        </div>
-
-        <!-- Restaurant Staff -->
-        <div class="truth__col">
-          <h4 class="truth__col-title">
-            <span class="truth__role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/><path d="M8 14h8"/></svg></span> Restaurant Staff
-          </h4>
-          <ol class="truth__list">
-            <li>
-              <strong>Low base salaries depending on gifts</strong>
-              <span>They live with financial anxiety and depend on external factors: weather, traffic, customer mood, etc.</span>
-            </li>
-            <li>
-              <strong>Retention or theft of gifts by the restaurant</strong>
-              <span>They lose legitimate income that they should receive as part of their work.</span>
-            </li>
-            <li>
-              <strong>Unfair distribution (poorly managed pooling)</strong>
-              <span>They share the pool with staff who sometimes do not contribute to the direct service, or even with management.</span>
-            </li>
-            <li>
-              <strong>Tipflation (gratuity inflation)</strong>
-              <span>Although suggested percentages rise, their income does not necessarily increase, because many clients react by reducing or avoiding showing gratitude.</span>
-            </li>
-            <li>
-              <strong>Social pressure and manipulation at the point of payment</strong>
-              <span>They are judged or pointed out according to the gratitude each client shows, affecting the work environment.</span>
-            </li>
-            <li>
-              <strong>Deterioration of gratitude</strong>
-              <span>Gratitude loses its real value and becomes a metric that determines their income, not an authentic human gesture.</span>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════ CONTENT CREATORS ═══════════════ -->
-    <div class="truth__industry truth__industry--single">
-      <div class="truth__industry-head">
-        <span class="truth__emoji" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01"/></svg></span>
-        <h3 class="truth__industry-name">Content Creators</h3>
-        <p class="truth__industry-tagline">The truth about gratitude</p>
-      </div>
-
-      <div class="truth__columns truth__columns--single">
-        <div class="truth__col truth__col--full">
-          <ol class="truth__list">
-            <li>
-              <span>Your audience supports you, yet fees take a big slice before it even reaches you.</span>
-            </li>
-            <li>
-              <span>Every donation loses power: high fees shrink their support to just a fraction of its value.</span>
-            </li>
-            <li>
-              <span>Your audience's effort gets diluted: the platform decides how much of their support actually reaches you.</span>
-            </li>
-            <li>
-              <span>Your creativity creates value, but fees chip away at it before it reaches your hands.</span>
-            </li>
-            <li>
-              <span>Your audience's support should lift you up — not vanish in unfair fees.</span>
-            </li>
-          </ol>
-          <p class="truth__summary">
-            In short: You create, your audience gives, but most of that support is swallowed by the platform and hidden fees, leaving you with very little control over your own income.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════ HOTEL STAFF & GUESTS ═══════════════ -->
-    <div class="truth__industry">
-      <div class="truth__industry-head">
-        <span class="truth__emoji" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M2 14h20"/><path d="M14 2v20"/><line x1="7" y1="8" x2="8" y2="8"/><line x1="7" y1="11" x2="8" y2="11"/><line x1="7" y1="17" x2="8" y2="17"/><line x1="7" y1="20" x2="8" y2="20"/></svg></span>
-        <h3 class="truth__industry-name">Hotel Staff &amp; All Gratitude</h3>
-        <p class="truth__industry-tagline">The truth about gratitude</p>
-      </div>
-
-      <div class="truth__columns">
-        <!-- Hotel Staff -->
-        <div class="truth__col">
-          <h4 class="truth__col-title">
-            <span class="truth__role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg></span> Hotel Staff
-          </h4>
-          <ol class="truth__list">
-            <li>
-              <strong>Lack of transparency in gift distribution</strong>
-              <span>They don't know how much actually reaches them; many gifts get "diluted" in internal systems or are unfairly redistributed.</span>
-            </li>
-            <li>
-              <strong>Retention or deductions of gifts by the hotel</strong>
-              <span>They can lose part of their gifts due to unclear internal policies or unjustified deductions.</span>
-            </li>
-            <li>
-              <strong>Inability to receive digital gratitude directly</strong>
-              <span>Many areas (housekeeping, valet, maintenance) rarely receive gifts because guests no longer carry cash.</span>
-            </li>
-          </ol>
-        </div>
-
-        <!-- Guest -->
-        <div class="truth__col">
-          <h4 class="truth__col-title">
-            <span class="truth__role-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tippal-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg></span> Guest
-          </h4>
-          <ol class="truth__list">
-            <li>
-              <strong>Lack of transparency in gift distribution</strong>
-              <span>They believe they are leaving a direct gift, but they don't know if the worker actually receives it or if the hotel partially keeps it.</span>
-            </li>
-            <li>
-              <strong>Retention or deductions of gifts by the hotel</strong>
-              <span>They think they're doing a good deed, but their contribution does not reach the worker in full.</span>
-            </li>
-            <li>
-              <strong>Inability to give digital gratitude directly</strong>
-              <span>They want to give, but they don't have cash or don't know how to do it comfortably and directly.</span>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════════ TIPPAL FOR EVERYONE ═══════════════ -->
     <div class="truth__cta">
-      <span class="truth__cta-emoji" aria-hidden="true"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
-      <h2 class="truth__cta-title">TipPal Is For Everyone</h2>
-      <p class="truth__cta-desc">
-        For everyone who shows gratitude and for everyone who receives it: we are the fair, direct, and transparent solution.
-      </p>
-      <p class="truth__cta-tagline">
-        Because we are <strong>all</strong> TipPal.
-      </p>
+      <h2 class="truth__cta-title">{copy.ctaTitle}</h2>
+      <p class="truth__cta-desc">{copy.ctaBody}</p>
+      <p class="truth__cta-tagline">{copy.ctaTagline}</p>
     </div>
-
   </div>
 </section>
 
 <style>
-  /* ── Section ── */
   .truth {
     background: #fff;
     padding: 104px 28px 80px;
@@ -261,223 +71,91 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 42px;
   }
-
-  /* ── Header ── */
   .truth__header {
+    max-width: 760px;
+    margin: 0 auto;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
   }
   .truth__kicker {
-    margin: 0;
+    margin: 0 0 10px;
+    color: var(--tippal-secondary);
+    font-size: 13px;
     font-weight: 800;
-    font-size: 14px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: var(--tippal-secondary);
   }
-  .truth__title {
+  .truth__title,
+  .truth__cta-title {
     margin: 0;
-    font-family: var(--tippal-font-display);
-    font-weight: 700;
-    font-size: clamp(36px, 4.6vw, 56px);
     color: var(--tippal-accent);
+    font-family: var(--tippal-font-display);
+    font-size: clamp(32px, 4.5vw, 48px);
     line-height: 1.12;
   }
   .truth__subtitle {
-    margin: 4px auto 0;
-    max-width: 62ch;
-    font-size: 17.5px;
-    line-height: 1.6;
+    max-width: 58ch;
+    margin: 14px auto 0;
     color: var(--tippal-text-secondary);
-    text-wrap: pretty;
+    font-size: 17px;
+    line-height: 1.6;
   }
-
-  /* ── Industry block ── */
-  .truth__industry {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding: 36px 32px;
-    background: var(--tippal-background);
-    border-radius: 24px;
-  }
-  .truth__industry--single {
-    /* content creators — single column, already handled */
-  }
-  .truth__industry-head {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .truth__emoji {
-    display: flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .truth__industry-name {
-    margin: 0;
-    font-family: var(--tippal-font-display);
-    font-weight: 700;
-    font-size: clamp(24px, 2.6vw, 32px);
-    color: var(--tippal-accent);
-  }
-  .truth__industry-tagline {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--tippal-secondary);
-    background: var(--tippal-secondary-light);
-    padding: 3px 12px;
-    border-radius: 9999px;
-  }
-
-  /* ── Two-column layout ── */
-  .truth__columns {
+  .truth__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
   }
-  .truth__columns--single {
-    grid-template-columns: 1fr;
+  .truth__card {
+    min-height: 210px;
+    padding: 24px 20px;
+    border: 1px solid rgba(48, 0, 106, .08);
+    border-radius: 20px;
+    background: var(--tippal-background);
+    box-shadow: var(--tippal-shadow-card);
   }
-  .truth__col {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .truth__col--full {
-    max-width: 74ch;
-  }
-  .truth__col-title {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 800;
-    font-size: 18px;
-    color: var(--tippal-accent);
-  }
-  .truth__role-icon {
-    display: flex;
-    align-items: center;
-    line-height: 1;
-  }
-
-  /* ── List ── */
-  .truth__list {
-    margin: 0;
-    padding-left: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    list-style: none;
-    counter-reset: truth-item;
-  }
-  .truth__list li {
-    counter-increment: truth-item;
-    position: relative;
-    padding-left: 32px;
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--tippal-text-secondary);
-  }
-  .truth__list li::before {
-    content: counter(truth-item);
-    position: absolute;
-    left: 0;
-    top: -1px;
-    width: 22px;
-    height: 22px;
-    border-radius: 7px;
-    background: var(--tippal-primary-light);
-    color: var(--tippal-primary);
-    font-size: 11.5px;
-    font-weight: 800;
-    display: flex;
+  .truth__number {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
     align-items: center;
     justify-content: center;
-  }
-  .truth__list li strong {
-    display: block;
-    font-weight: 800;
-    color: var(--tippal-accent);
-    margin-bottom: 4px;
-  }
-  .truth__list li span {
-    display: block;
-  }
-
-  /* ── Summary (content creators) ── */
-  .truth__summary {
-    margin: 4px 0 0;
-    padding: 16px 18px;
+    border-radius: 12px;
+    color: var(--tippal-primary);
     background: #fff;
-    border-radius: 14px;
-    font-size: 15.5px;
-    font-weight: 600;
-    line-height: 1.55;
-    color: var(--tippal-text);
-    border-left: 4px solid var(--tippal-secondary);
-  }
-
-  /* ── CTA Banner ── */
-  .truth__cta {
-    background: linear-gradient(135deg, var(--tippal-secondary), var(--tippal-accent) 75%);
-    border-radius: 24px;
-    padding: 56px 32px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-  .truth__cta-emoji {
-    display: flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .truth__cta-title {
-    margin: 0;
     font-family: var(--tippal-font-display);
-    font-weight: 700;
-    font-size: clamp(32px, 4vw, 46px);
-    color: #fff;
-  }
-  .truth__cta-desc {
-    margin: 0;
-    max-width: 56ch;
-    font-size: 17.5px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85);
-    text-wrap: pretty;
-  }
-  .truth__cta-tagline {
-    margin: 0;
     font-size: 18px;
-    color: var(--tippal-smile);
+    font-weight: 700;
   }
-  .truth__cta-tagline strong {
+  .truth__card h3 {
+    margin: 22px 0 8px;
+    color: var(--tippal-accent);
+    font-size: 17px;
+    line-height: 1.3;
+  }
+  .truth__card p {
+    margin: 0;
+    color: var(--tippal-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .truth__cta {
+    padding: 38px 24px;
+    border-radius: 24px;
     color: #fff;
+    background: linear-gradient(135deg, var(--tippal-secondary), var(--tippal-accent) 80%);
+    text-align: center;
   }
+  .truth__cta-title { color: #fff; font-size: clamp(28px, 4vw, 40px); }
+  .truth__cta-desc { margin: 12px 0 0; color: rgba(255,255,255,.86); font-size: 16px; line-height: 1.6; }
+  .truth__cta-tagline { margin: 16px 0 0; color: var(--tippal-tertiary); font-weight: 700; }
 
-  /* ── Responsive ── */
-  @media (max-width: 720px) {
-    .truth__columns {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-    .truth__industry {
-      padding: 28px 20px;
-    }
-    .truth__cta {
-      padding: 40px 20px;
-    }
+  @media (max-width: 900px) {
+    .truth__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .truth { padding: 76px 20px 60px; }
+    .truth__grid { grid-template-columns: 1fr; }
+    .truth__card { min-height: auto; }
   }
 </style>

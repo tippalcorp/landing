@@ -1,14 +1,21 @@
 ---
 import StoreButton from "./StoreButton.astro";
+
+interface Props {
+  language?: "en" | "es";
+}
+
+const { language = "en" } = Astro.props;
+const copy = language === "es"
+  ? { title: "Juntos, frenamos la Tipflation.", description: "La gratitud no debería sentirse como un peaje en cada caja. TipPal ofrece otra forma de agradecer, con los cargos aplicables a la vista antes de completar cada acción.", download: "descargar" }
+  : { title: "Together, we stop Tipflation.", description: "Gratitude shouldn't feel like a toll at every checkout. TipPal offers another way to say thanks, with applicable charges shown before you complete an action.", download: "get" };
 ---
 
-<section id="get" class="manifesto">
+<section id={language === "es" ? "por-que" : "get"} class="manifesto">
   <div class="manifesto__inner">
-    <h2 class="manifesto__title">Together, we stop Tipflation.</h2>
-    <p class="manifesto__desc">
-      Gratitude shouldn't feel like a toll at every checkout. TipPal takes the pressure out and keeps the gratitude real — gratitude is a gift, not a fee.
-    </p>
-    <div class="manifesto__stores">
+    <h2 class="manifesto__title">{copy.title}</h2>
+    <p class="manifesto__desc">{copy.description}</p>
+    <div id={language === "es" ? "descargar" : copy.download} class="manifesto__stores">
       <StoreButton store="apple" size="lg" />
       <StoreButton store="google" href="https://play.google.com/store/apps/details?id=com.tippalcorp.app" size="lg" />
     </div>
