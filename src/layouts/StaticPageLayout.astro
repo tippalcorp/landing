@@ -9,8 +9,6 @@ interface Props {
   seoTitle?: string;
   /** SEO meta description. */
   description?: string;
-  /** OG/Twitter image path. Defaults to /og.png. */
-  ogImage?: string;
   /** Canonical URL path. */
   canonicalURL?: string;
   /** Open Graph type. Defaults to "website". */
@@ -31,7 +29,6 @@ const {
   title,
   seoTitle,
   description,
-  ogImage = "/og.png",
   canonicalURL,
   ogType = "website",
   lang = "en",
@@ -49,7 +46,6 @@ const companyLabel = company;
 <BaseLayout
   title={pageTitle}
   description={description}
-  ogImage={ogImage}
   canonicalURL={canonicalURL}
   ogType={ogType}
   lang={lang}

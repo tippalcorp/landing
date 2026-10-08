@@ -9,13 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "generate:og": "node scripts/generate-og.mjs"
+    "astro": "astro"
   },
   "dependencies": {
     "astro": "^7.1.3"
-  },
-  "devDependencies": {
-    "sharp": "^0.35.5"
   }
 }
