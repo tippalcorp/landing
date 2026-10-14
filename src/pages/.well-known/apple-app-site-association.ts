@@ -1,18 +1,27 @@
 import type { APIRoute } from "astro";
 
-const content = {
+export const prerender = true;
+
+const body = JSON.stringify({
   applinks: {
     apps: [],
     details: [
       {
-        appID: "TU_TEAM_ID.com.tippalcorp.app",
-        paths: ["/send", "/send/*", "/receive", "/receive/*"],
+        appIDs: ["8AAC2QGCAD.com.tippalcorp.tippal"],
+        components: [
+          { "/": "/send", comment: "Tip share universal link" },
+          { "/": "/receive", comment: "Direct receive by recipient" },
+        ],
       },
     ],
   },
-};
+});
 
 export const GET: APIRoute = () =>
-  new Response(JSON.stringify(content, null, 2), {
-    headers: { "Content-Type": "application/json" },
+  new Response(body, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=3600",
+    },
   });
