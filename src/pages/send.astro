@@ -1,5 +1,9 @@
 ---
-// Static page. Query param `to` is read client-side.
+// /send — Universal Link / App Link destination.
+// If the user has the TipPal app installed, iOS/Android open the app directly.
+// If not, this page shows the store buttons and auto-redirects to the right store.
+const appleStoreUrl = "https://apps.apple.com/us/app/tippal/id6806428593";
+const googleStoreUrl = "https://play.google.com/store/apps/details?id=com.tippalcorp.app";
 ---
 
 <!doctype html>
@@ -8,8 +12,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TipPal — Send gratitude</title>
-    <meta name="description" content="Send gratitude instantly with TipPal. Scan, tap, and share appreciation." />
+    <meta name="description" content="Send gratitude instantly with TipPal. Get the app and share appreciation in seconds." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="apple-itunes-app" content={`app-id=6806428593`} />
+    <meta name="google-play-app" content={`app-id=com.tippalcorp.app`} />
   </head>
   <body>
     <main>
@@ -24,16 +30,31 @@
 
         <h1 id="title">Send gratitude with TipPal</h1>
 
-        <p class="subtitle">
-          Choose an amount, tap your phone, and send appreciation in seconds.
+        <p class="subtitle" id="subtitle">
+          Get the TipPal app to send your tip instantly.
         </p>
 
-        <a
-          href="https://play.google.com/store/apps/details?id=com.tippalcorp.app"
-          class="button"
-        >
-          Get TipPal on Google Play
-        </a>
+        <div class="stores">
+          <a href={appleStoreUrl} class="store apple" target="_blank" rel="noopener noreferrer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.05 12.54c-.03-2.9 2.37-4.29 2.48-4.36-1.35-1.97-3.45-2.24-4.2-2.27-1.79-.18-3.49 1.05-4.4 1.05-.9 0-2.3-1.02-3.79-1-1.95.03-3.74 1.13-4.74 2.87-2.02 3.5-.52 8.69 1.45 11.53.96 1.39 2.11 2.95 3.62 2.89 1.45-.06 2-.94 3.76-.94s2.25.94 3.79.91c1.57-.03 2.56-1.42 3.52-2.81 1.11-1.61 1.56-3.17 1.59-3.25-.04-.02-3.05-1.17-3.08-4.62zM14.16 4.1c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.86-1.39 2.23-1.22 3.55 1.29.1 2.6-.65 3.41-1.63z" />
+            </svg>
+            <span class="store__labels">
+              <span class="store__top">Download on the</span>
+              <span class="store__bottom">App Store</span>
+            </span>
+          </a>
+
+          <a href={googleStoreUrl} class="store google" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4 2.5v19l11-9.5L4 2.5zM16.8 10.1l3.3 1.9c1 .6 1 1.4 0 2l-3.3 1.9-2.9-2.9 2.9-2.9z" />
+            </svg>
+            <span class="store__labels">
+              <span class="store__top">Get it on</span>
+              <span class="store__bottom">Google Play</span>
+            </span>
+          </a>
+        </div>
       </div>
     </main>
   </body>
@@ -68,7 +89,7 @@
   }
 
   .container {
-    max-width: 360px;
+    max-width: 380px;
     margin: 0 auto;
     padding: 48px 24px;
     text-align: center;
@@ -92,43 +113,92 @@
   }
 
   h1 .email {
-    color: #007FFF;
+    color: #007fff;
   }
 
   .subtitle {
     font-size: 0.9375rem;
     line-height: 1.5;
     color: #666666;
-    max-width: 280px;
+    max-width: 320px;
   }
 
-  .button {
-    display: inline-block;
-    padding: 14px 32px;
+  .stores {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 280px;
+    margin-top: 8px;
+  }
+
+  .store {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    padding: 12px 24px;
     background-color: #30006a;
     color: #ffffff;
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 9999px;
-    line-height: 1;
-    white-space: nowrap;
+    border-radius: 15px;
+    font-family: inherit;
+    transition: transform 150ms ease;
   }
 
-  .button:hover {
-    opacity: 0.92;
+  .store:hover {
+    transform: scale(1.03);
+    color: #ffffff;
+  }
+
+  .store__labels {
+    text-align: left;
+    line-height: 1.15;
+  }
+
+  .store__top {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.75;
+  }
+
+  .store__bottom {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
   }
 </style>
 
-<script>
-  // Read `to` query param and update the title dynamically.
-  const params = new URLSearchParams(window.location.search);
-  const to = params.get("to");
-
-  if (to) {
-    const title = document.getElementById("title");
-    if (title) {
-      title.innerHTML = `Send gratitude to <span class="email">${to}</span>`;
+<script is:inline>
+  (() => {
+    // Personalize the page with the recipient from the ?to= query string.
+    const params = new URLSearchParams(window.location.search);
+    const to = params.get("to");
+    if (to) {
+      const title = document.getElementById("title");
+      const subtitle = document.getElementById("subtitle");
+      if (title) {
+        title.innerHTML = `Send gratitude to <span class="email">${to}</span>`;
+      }
+      if (subtitle) {
+        subtitle.textContent = `Get the TipPal app to send your tip to ${to}.`;
+      }
     }
-  }
+
+    // Auto-redirect to the matching store after a short delay.
+    // Universal Links / App Links already opened the app if installed;
+    // this catches users who landed here from a regular share without the app.
+    const appleStoreUrl = "https://apps.apple.com/us/app/tippal/id6806428593";
+    const googleStoreUrl = "https://play.google.com/store/apps/details?id=com.tippalcorp.app";
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
+
+    if (isIOS || isAndroid) {
+      setTimeout(() => {
+        window.location.replace(isIOS ? appleStoreUrl : googleStoreUrl);
+      }, 1200);
+    }
+  })();
 </script>
