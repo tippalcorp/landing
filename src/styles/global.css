@@ -53,6 +53,23 @@
   --tippal-ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
   --tippal-ease-joy: cubic-bezier(0.22, 1, 0.36, 1); /* was overshoot bezier — settled per Hallmark audit */
   --tippal-dur-celebrate: 900ms;
+
+  /* Layout rhythm — vertical breathing room between page sections.
+     One token so the whole page keeps a single cadence. */
+  --tippal-space-section: clamp(104px, 10vw, 148px);
+
+  /* Hero atmosphere. Light is anchored to the illustration (glow) with a
+     warm counterweight in the empty lower-left, over a top-down wash. Every
+     layer resolves to --tippal-background at the edges, so the hero's scroll
+     fade never reveals a seam. */
+  --tippal-hero-glow-rgb: 217 184 255;   /* --tippal-secondary-light */
+  --tippal-hero-warmth-rgb: 255 122 89;  /* --tippal-heart */
+  --tippal-hero-surface:
+    radial-gradient(72% 50% at 71% 50%, rgb(var(--tippal-hero-glow-rgb) / 0.72) 0%, rgb(var(--tippal-hero-glow-rgb) / 0.30) 46%, rgb(var(--tippal-hero-glow-rgb) / 0) 78%),
+    radial-gradient(48% 20% at 8% 80%, rgb(var(--tippal-hero-warmth-rgb) / 0.18) 0%, rgb(var(--tippal-hero-warmth-rgb) / 0) 100%),
+    linear-gradient(180deg, #f3e8ff 0%, #f9f4ff 14%, #f3e8ff 50%, #f3e8ff 100%);
+  /* Fine grain tile: stops large soft washes from banding. */
+  --tippal-hero-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 }
 
 /* ── Keyframes ── */

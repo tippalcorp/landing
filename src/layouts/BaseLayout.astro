@@ -83,5 +83,21 @@ const xDefaultURL = hreflang?.en ?? canonPath;
     <div style="overflow-x: clip">
       <slot />
     </div>
+    <script>
+      // The sticky nav only goes transparent while it still sits over the top
+      // of the hero. Once hero content starts scrolling under it, the bar
+      // needs its background back to stay legible.
+      const nav = document.querySelector("nav.nav");
+      const hero = document.getElementById("top");
+
+      if (nav && hero) {
+        const sync = () => {
+          nav.toggleAttribute("data-over-hero", window.scrollY <= 8);
+        };
+
+        sync();
+        window.addEventListener("scroll", sync, { passive: true });
+      }
+    </script>
   </body>
 </html>

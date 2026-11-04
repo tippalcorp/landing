@@ -23,9 +23,20 @@ import HeartIcon from "./HeartIcon.astro";
     justify-content: space-between;
     gap: 16px;
     padding: 14px 28px;
-    background: rgba(243, 232, 255, 0.82);
+    background-color: rgba(243, 232, 255, 0.82);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--tippal-border-light);
+    transition:
+      background-color 0.25s var(--tippal-ease-settle),
+      border-color 0.25s var(--tippal-ease-settle);
+  }
+  /* While the page is still at the top the bar would cut the hero surface, so
+     it gets out of the way completely. It turns solid once content scrolls
+     under it. */
+  .nav[data-over-hero] {
+    background-color: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
   }
   .nav__logo {
     display: flex;

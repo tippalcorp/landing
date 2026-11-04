@@ -1,6 +1,6 @@
 ---
-import HeartIcon from "./HeartIcon.astro";
 import StoreButton from "./StoreButton.astro";
+import TapToPayHero from "./TapToPayHero.astro";
 ---
 
 <section id="top" class="hero">
@@ -26,45 +26,37 @@ import StoreButton from "./StoreButton.astro";
     </div>
     <!-- Right column -->
     <div class="hero__right">
-      <div class="hero__card">
-        <img
-          src="/assets/hug.png"
-          alt="Two friends hugging"
-          fetchpriority="high"
-        />
-        <!-- "Gratitude sent!" pill -->
-        <div class="hero__pill">
-          <span class="hero__pill-chip">
-            <HeartIcon size={15} color="var(--tippal-heart)" />
-          </span>
-          <span class="hero__pill-text">Gratitude sent!</span>
-          <span class="hero__pill-amount">$5.00</span>
-        </div>
-        <!-- Floating hearts -->
-        <svg class="hero__heart hero__heart--1" width="26" height="26" viewBox="0 0 24 24" fill="var(--tippal-heart)" aria-hidden="true">
-          <path d="M12 21s-7.5-4.6-10-9.1C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.3 2.3l2 2.7 2-2.7C15 6.1 16.3 5 18.3 5c3.4 0 5.3 3.6 3.7 6.9C19.5 16.4 12 21 12 21z" />
-        </svg>
-        <svg class="hero__heart hero__heart--2" width="19" height="19" viewBox="0 0 24 24" fill="var(--tippal-smile)" aria-hidden="true">
-          <path d="M12 21s-7.5-4.6-10-9.1C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.3 2.3l2 2.7 2-2.7C15 6.1 16.3 5 18.3 5c3.4 0 5.3 3.6 3.7 6.9C19.5 16.4 12 21 12 21z" />
-        </svg>
-        <svg class="hero__heart hero__heart--3" width="16" height="16" viewBox="0 0 24 24" fill="var(--tippal-calm)" aria-hidden="true">
-          <path d="M12 21s-7.5-4.6-10-9.1C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.3 2.3l2 2.7 2-2.7C15 6.1 16.3 5 18.3 5c3.4 0 5.3 3.6 3.7 6.9C19.5 16.4 12 21 12 21z" />
-        </svg>
-      </div>
+      <TapToPayHero />
     </div>
   </div>
 </section>
 
 <style>
   .hero {
+    position: relative;
+    isolation: isolate;
+    background: var(--tippal-hero-surface);
     animation: kf-exit linear both;
     animation-timeline: view();
     animation-range: exit 0% exit 75%;
   }
+  /* Grain layer: sits between the gradient and the content, never over it. */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--tippal-hero-grain);
+    opacity: 0.3;
+    mix-blend-mode: soft-light;
+  }
   .hero__grid {
+    position: relative;
+    z-index: 1;
     max-width: 1140px;
     margin: 0 auto;
-    padding: 72px 28px 88px;
+    padding: 76px 28px var(--tippal-space-section);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 56px;
@@ -105,7 +97,10 @@ import StoreButton from "./StoreButton.astro";
     color: var(--tippal-accent);
   }
   .hero__tagline-accent {
-    color: var(--tippal-primary);
+    /* primary-dark, not primary: the hero surface carries a lilac bloom, and
+       #0068d1 measures 4.46:1 on the deepest part of it (3.5:1 at the bloom's
+       peak), which keeps the design lint red. */
+    color: var(--tippal-primary-dark);
   }
   .hero__stores {
     display: flex;
@@ -116,77 +111,16 @@ import StoreButton from "./StoreButton.astro";
   .hero__micro {
     font-size: 13.5px;
     font-weight: 600;
-    color: var(--tippal-text-tertiary);
+    /* Secondary, not tertiary: the micro line sits on the hero's warm wash,
+       where tertiary (#716586) drops under 4.5:1. */
+    color: var(--tippal-text-secondary);
   }
   .hero__right {
     position: relative;
     display: flex;
+    align-items: center;
     justify-content: center;
+    align-self: stretch;
     animation: kf-pop 0.8s var(--tippal-ease-settle) 0.25s both;
-  }
-  .hero__card {
-    position: relative;
-    background: #fff;
-    border-radius: var(--tippal-radius-display);
-    padding: 28px 34px 60px;
-    box-shadow: var(--tippal-shadow-float);
-  }
-  .hero__card img {
-    width: min(300px, 60vw);
-    display: block;
-  }
-  .hero__pill {
-    position: absolute;
-    left: 50%;
-    bottom: -24px;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    background: #fff;
-    border-radius: var(--tippal-radius-pill);
-    padding: 11px 20px;
-    box-shadow: var(--tippal-shadow-float);
-    white-space: nowrap;
-    animation: tippal-pop var(--tippal-dur-celebrate) var(--tippal-ease-settle) 1.1s both;
-  }
-  .hero__pill-chip {
-    width: 30px;
-    height: 30px;
-    border-radius: var(--tippal-radius-tile);
-    background: var(--tippal-heart-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .hero__pill-text {
-    font-weight: 800;
-    font-size: 15.5px;
-    color: var(--tippal-accent);
-  }
-  .hero__pill-amount {
-    font-weight: 700;
-    font-size: 15.5px;
-    color: var(--tippal-heart-ink);
-  }
-
-  /* Floating hearts */
-  .hero__heart {
-    position: absolute;
-  }
-  .hero__heart--1 {
-    top: 18px;
-    right: -14px;
-    animation: tippal-heart-float 3.2s ease-in 1.4s infinite;
-  }
-  .hero__heart--2 {
-    top: 60px;
-    left: -18px;
-    animation: tippal-heart-float 3.8s ease-in 2.1s infinite;
-  }
-  .hero__heart--3 {
-    bottom: 90px;
-    right: -26px;
-    animation: tippal-heart-float 4.4s ease-in 2.8s infinite;
   }
 </style>

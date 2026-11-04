@@ -13,6 +13,7 @@
     "lint:design": "astro build && .opencode/skills/impeccable/scripts/impeccable detect dist/"
   },
   "dependencies": {
-    "astro": "^7.1.3"
+    "astro": "^7.1.3",
+    "lottie-web": "^5.13.0"
   }
 }

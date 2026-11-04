@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StoreButton from "../../components/StoreButton.astro";
+import TapToPayHero from "../../components/TapToPayHero.astro";
 import Footer from "../../components/Footer.astro";
 ---
 
@@ -45,13 +46,7 @@ import Footer from "../../components/Footer.astro";
       </div>
 
       <div class="hero__right">
-        <div class="hero__card">
-          <img
-            src="/assets/hug.png"
-            alt="Dos amigos abrazándose"
-            fetchpriority="high"
-          />
-        </div>
+        <TapToPayHero />
       </div>
     </div>
   </section>
@@ -105,9 +100,20 @@ import Footer from "../../components/Footer.astro";
     justify-content: space-between;
     gap: 16px;
     padding: 14px 28px;
-    background: rgba(243, 232, 255, 0.82);
+    background-color: rgba(243, 232, 255, 0.82);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--tippal-border-light);
+    transition:
+      background-color 0.25s var(--tippal-ease-settle),
+      border-color 0.25s var(--tippal-ease-settle);
+  }
+  /* While the page is still at the top the bar would cut the hero surface, so
+     it gets out of the way completely. It turns solid once content scrolls
+     under it. */
+  .nav[data-over-hero] {
+    background-color: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
   }
   .nav__logo {
     display: flex;
@@ -142,10 +148,28 @@ import Footer from "../../components/Footer.astro";
     color: #fff;
   }
 
+  .hero {
+    position: relative;
+    isolation: isolate;
+    background: var(--tippal-hero-surface);
+  }
+  /* Grain layer: sits between the gradient and the content, never over it. */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--tippal-hero-grain);
+    opacity: 0.3;
+    mix-blend-mode: soft-light;
+  }
   .hero__grid {
+    position: relative;
+    z-index: 1;
     max-width: 1140px;
     margin: 0 auto;
-    padding: 56px 28px 72px;
+    padding: 76px 28px var(--tippal-space-section);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 48px;
@@ -174,7 +198,10 @@ import Footer from "../../components/Footer.astro";
     color: var(--tippal-accent);
   }
   .hero__tagline-accent {
-    color: var(--tippal-primary);
+    /* primary-dark, not primary: the hero surface carries a lilac bloom, and
+       #0068d1 measures 4.46:1 on the deepest part of it (3.5:1 at the bloom's
+       peak), which keeps the design lint red. */
+    color: var(--tippal-primary-dark);
   }
   .hero__desc {
     margin: 0;
@@ -192,27 +219,21 @@ import Footer from "../../components/Footer.astro";
   .hero__micro {
     font-size: 13.5px;
     font-weight: 600;
-    color: var(--tippal-text-tertiary);
+    /* Secondary, not tertiary: the micro line sits on the hero's warm wash,
+       where tertiary (#716586) drops under 4.5:1. */
+    color: var(--tippal-text-secondary);
   }
   .hero__right {
     display: flex;
+    align-items: center;
     justify-content: center;
-  }
-  .hero__card {
-    background: #fff;
-    border-radius: var(--tippal-radius-display);
-    padding: 28px 34px 60px;
-    box-shadow: var(--tippal-shadow-float);
-  }
-  .hero__card img {
-    width: min(280px, 56vw);
-    display: block;
+    align-self: stretch;
   }
 
   .how {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 40px 28px 72px;
+    padding: var(--tippal-space-section) 28px;
   }
   .how__title {
     margin: 0 0 32px;
@@ -261,7 +282,7 @@ import Footer from "../../components/Footer.astro";
   }
 
   .manifesto {
-    padding: 96px 28px 88px;
+    padding: var(--tippal-space-section) 28px;
     text-align: center;
   }
   .manifesto__inner {

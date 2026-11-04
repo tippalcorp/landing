@@ -1,0 +1,120 @@
+---
+import { Image } from "astro:assets";
+import poster from "../assets/tippal-tap-to-pay-poster.png";
+
+/**
+ * Tap to Pay hero illustration.
+ *
+ * Renders a static poster frame immediately (LCP-safe, works without JS and
+ * with reduced motion) and swaps in the Lottie scene once the page is idle.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["tap-hero", className]} data-tap-hero-root aria-hidden="true">
+  <Image
+    class="tap-hero__poster"
+    src={poster}
+    alt=""
+    widths={[640, 1280]}
+    sizes="(max-width: 565px) 92vw, (max-width: 1024px) 520px, 660px"
+    format="webp"
+    loading="eager"
+    decoding="async"
+  />
+  <div class="tap-hero__stage" data-tap-hero></div>
+</div>
+
+<style>
+  .tap-hero {
+    position: relative;
+    width: min(520px, 92vw);
+    aspect-ratio: 680 / 730;
+  }
+  .tap-hero__poster,
+  .tap-hero__stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .tap-hero__poster {
+    object-fit: contain;
+    transition: opacity 0.35s var(--tippal-ease-settle);
+  }
+  .tap-hero__stage {
+    opacity: 0;
+    transition: opacity 0.35s var(--tippal-ease-settle);
+  }
+  .tap-hero__stage :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .tap-hero[data-tap-hero-ready] .tap-hero__poster {
+    opacity: 0;
+  }
+  .tap-hero[data-tap-hero-ready] .tap-hero__stage {
+    opacity: 1;
+  }
+
+  /* Two-column layouts size the scene by the row height so it spans the
+     headline column. The Lottie art keeps a margin inside its own canvas, so
+     the stage overhangs the box by that margin and the drawn art ends up
+     exactly as tall as the text column. */
+  @media (min-width: 1024px) {
+    .tap-hero {
+      width: auto;
+      height: 100%;
+    }
+    .tap-hero__poster,
+    .tap-hero__stage {
+      top: -4.5%;
+      left: -4.5%;
+      width: 109%;
+      height: 109%;
+    }
+  }
+</style>
+
+<script>
+  const roots = document.querySelectorAll<HTMLElement>("[data-tap-hero-root]");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (roots.length > 0 && !prefersReducedMotion) {
+    const boot = () => {
+      void import("lottie-web/build/player/lottie_light").then(({ default: lottie }) => {
+        roots.forEach((root) => {
+          const stage = root.querySelector<HTMLElement>("[data-tap-hero]");
+          if (!stage) return;
+
+          const animation = lottie.loadAnimation({
+            container: stage,
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            path: "/assets/tippal-tap-to-pay.json",
+            rendererSettings: { preserveAspectRatio: "xMidYMid meet" },
+          });
+
+          animation.addEventListener("DOMLoaded", () => {
+            root.setAttribute("data-tap-hero-ready", "");
+          });
+        });
+      });
+    };
+
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(boot, { timeout: 1200 });
+    } else {
+      window.setTimeout(boot, 300);
+    }
+  }
+</script>
