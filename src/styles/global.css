@@ -37,6 +37,18 @@
   --tippal-shadow-card: 0 8px 24px -6px rgba(48, 0, 106, 0.12);
   --tippal-shadow-float: 0 16px 40px -12px rgba(48, 0, 106, 0.25);
 
+  /* Radius — assigned by role, not copied into every box.
+     Small elements get small radii; only the hero showcase earns a large one.
+     Section-level grouping bands stay square (0) so they read as bands, not cards. */
+  --tippal-radius-micro: 6px;    /* numbered counters and micro chips (~20px) */
+  --tippal-radius-tile: 10px;    /* icon tiles (30–52px): steps, transactions, chips */
+  --tippal-radius-control: 12px; /* things you press: store buttons */
+  --tippal-radius-card: 16px;    /* a surface that holds content */
+  --tippal-radius-nested: 20px;  /* inside the 38px device frame (38 − 18 padding) */
+  --tippal-radius-display: 24px; /* one-off showcase: hero image frame */
+  --tippal-radius-device: 38px;  /* phone mockup follows the hardware */
+  --tippal-radius-pill: 9999px;  /* the pill shape itself is the affordance */
+
   /* Motion */
   --tippal-ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
   --tippal-ease-joy: cubic-bezier(0.22, 1, 0.36, 1); /* was overshoot bezier — settled per Hallmark audit */
