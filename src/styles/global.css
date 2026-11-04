@@ -86,10 +86,6 @@
   from { opacity: 0; transform: translateY(90px) rotate(4deg); }
   to   { opacity: 1; transform: none; }
 }
-@keyframes kf-marquee {
-  to { transform: translateX(-50%); }
-}
-
 /* From the design system — celebration */
 @keyframes tippal-pop {
   0%   { opacity: 0; transform: translateX(-50%) scale(0.5); }
