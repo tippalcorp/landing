@@ -4,16 +4,24 @@
   --tippal-background: #f3e8ff;
   --tippal-text: #241b35;
   --tippal-text-secondary: #5a4a75;
-  --tippal-text-tertiary: #8a7ba3;
-  --tippal-primary: #007fff;
-  --tippal-primary-dark: #0063c7;
+  /* 5.37:1 on white, 4.55:1 on --tippal-background (WCAG AA body text) */
+  --tippal-text-tertiary: #716586;
+  /* 5.38:1 on white, 4.56:1 on --tippal-background, 4.54:1 on --tippal-primary-light */
+  --tippal-primary: #0068d1;
+  --tippal-primary-dark: #0055a8;
   --tippal-primary-light: #dceeff;
   --tippal-secondary: #8a2be2;
+  /* Darker purple for large gradient surfaces that carry light text:
+     #8a2be2 is 4.16:1 against --tippal-smile, below AA. */
+  --tippal-secondary-deep: #7123b9;
   --tippal-secondary-light: #d9b8ff;
   --tippal-tertiary: #fff52d;
   --tippal-accent: #30006a;
   --tippal-border-light: #f5f0e5;
   --tippal-heart: #ff7a59;
+  /* Text variant of the heart coral: #ff7a59 fails AA as text (2.57:1 on white).
+     Keep the coral for icons and fills (non-text, 3:1) and use this for type. */
+  --tippal-heart-ink: #c2410c;
   --tippal-heart-soft: #ffe9e2;
   --tippal-smile: #ffd34d;
   --tippal-calm: #7fb8ff;

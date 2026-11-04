@@ -79,7 +79,7 @@ const companyLabel = company;
 
 <style is:global>
   .legal {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
     padding: 28px 28px 96px;
     color: var(--tippal-text);
@@ -110,6 +110,7 @@ const companyLabel = company;
     color: var(--tippal-secondary);
     padding-bottom: 14px;
     border-bottom: 2px solid var(--tippal-secondary-light);
+    text-wrap: balance;
   }
 
   /* ── Generic content sections (slotted) ── */
@@ -120,17 +121,21 @@ const companyLabel = company;
     margin-bottom: 0;
   }
 
-  .legal h3 {
+  /* Section headings. Standalone pages use <h2>; the legal document nests <h3>
+     inside each <section class="legal__part">. Part titles keep their own style. */
+  .legal :is(h2, h3):not(.legal__part-title) {
     margin: 0 0 12px;
     font-weight: 800;
-    font-size: 19px;
+    font-size: 20px;
     color: var(--tippal-accent);
+    text-wrap: balance;
   }
   .legal h4 {
     margin: 16px 0 8px;
     font-weight: 700;
     font-size: 16px;
     color: var(--tippal-text);
+    text-wrap: balance;
   }
 
   .legal p {
@@ -138,6 +143,9 @@ const companyLabel = company;
     font-size: 15.5px;
     line-height: 1.7;
     color: var(--tippal-text-secondary);
+    /* Cap the measure at a readable line length inside the 800px column. */
+    max-width: 72ch;
+    text-wrap: pretty;
   }
 
   .legal ul, .legal ol {
@@ -151,6 +159,8 @@ const companyLabel = company;
     font-size: 15px;
     line-height: 1.6;
     color: var(--tippal-text-secondary);
+    max-width: 72ch;
+    text-wrap: pretty;
   }
 
   .legal strong {

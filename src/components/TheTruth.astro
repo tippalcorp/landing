@@ -7,7 +7,6 @@
 
     <!-- Section header -->
     <header class="truth__header">
-      <p class="truth__kicker">Why TipPal exists</p>
       <h2 class="truth__title">The Truth About Gratitude</h2>
       <p class="truth__subtitle">
         Across every industry, showing gratitude has been turned into a broken transaction. Here's what's really happening — and why we built something better.
@@ -271,14 +270,6 @@
     flex-direction: column;
     gap: 12px;
   }
-  .truth__kicker {
-    margin: 0;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--tippal-secondary);
-  }
   .truth__title {
     margin: 0;
     font-family: var(--tippal-font-display);
@@ -332,7 +323,7 @@
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: var(--tippal-secondary);
+    color: var(--tippal-accent);
     background: var(--tippal-secondary-light);
     padding: 3px 12px;
     border-radius: 9999px;
@@ -416,20 +407,18 @@
 
   /* ── Summary (content creators) ── */
   .truth__summary {
-    margin: 4px 0 0;
-    padding: 16px 18px;
-    background: #fff;
-    border-radius: 14px;
+    margin: 12px 0 0;
+    padding: 14px 0 0;
+    border-top: 2px solid var(--tippal-secondary);
     font-size: 15.5px;
     font-weight: 600;
     line-height: 1.55;
     color: var(--tippal-text);
-    border-left: 4px solid var(--tippal-secondary);
   }
 
   /* ── CTA Banner ── */
   .truth__cta {
-    background: linear-gradient(135deg, var(--tippal-secondary), var(--tippal-accent) 75%);
+    background: linear-gradient(135deg, var(--tippal-secondary-deep), var(--tippal-accent) 75%);
     border-radius: 24px;
     padding: 56px 32px;
     text-align: center;
