@@ -36,7 +36,6 @@ accessibility problem.
 |---|---|
 | `ai-color-palette` | TipPal's brand is violet by design. The rule fires once per heading. |
 | `overused-font` / `plus jakarta sans` | Brand font, paired with Fredoka for display. |
-| `hero-eyebrow-chip` | The badge above the h1 is brand copy, not a decorative eyebrow. |
 | `tight-leading` | `.hero__title` (1.06) and `.hero__tagline` (1.1) are display type at 26–68px; the 1.3 floor is a body-text rule. |
 | `marquee` | The scrolling banner is an intentional brand motif. |
 | `cramped-padding` | Same banner: a marquee is edge-to-edge by definition. |

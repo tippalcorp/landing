@@ -7,10 +7,6 @@ import StoreButton from "./StoreButton.astro";
   <div class="hero__grid">
     <!-- Left column -->
     <div class="hero__left">
-      <div class="hero__badge hero-anim" style="animation-delay:0s">
-        <HeartIcon size={15} color="var(--tippal-heart)" />
-        The first app made exclusively for gratitude
-      </div>
       <h1 class="hero__title hero-anim" style="animation-delay:.1s">
         Gratitude is human.<br />No pressure.
       </h1>
@@ -81,19 +77,6 @@ import StoreButton from "./StoreButton.astro";
   }
   .hero-anim {
     animation: kf-hero-in 0.7s var(--tippal-ease-settle) both;
-  }
-  .hero__badge {
-    display: inline-flex;
-    align-self: flex-start;
-    align-items: center;
-    gap: 8px;
-    background: #fff;
-    border-radius: var(--tippal-radius-pill);
-    padding: 8px 16px;
-    box-shadow: var(--tippal-shadow-rest);
-    font-weight: 700;
-    font-size: 13.5px;
-    color: var(--tippal-accent);
   }
   .hero__title {
     margin: 0;

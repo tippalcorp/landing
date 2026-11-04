@@ -2,7 +2,6 @@
   "detector": {
     "ignoreRules": [
       "ai-color-palette",
-      "hero-eyebrow-chip",
       "tight-leading",
       "cramped-padding",
       "nested-cards",

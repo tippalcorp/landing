@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import HeartIcon from "../../components/HeartIcon.astro";
 import StoreButton from "../../components/StoreButton.astro";
 import Footer from "../../components/Footer.astro";
 ---
@@ -8,7 +7,7 @@ import Footer from "../../components/Footer.astro";
 <!-- TODO: human review ES copy -->
 <BaseLayout
   title="TipPal — Agradece a quienes te alegran el día."
-  description="TipPal es la forma más fácil de enviar gratitud en persona con Tap to Pay. La primera app hecha exclusivamente para agradecer a quienes te hacen el día."
+  description="TipPal es la forma más fácil de enviar gratitud en persona con Tap to Pay. Se descarga gratis y cada regalo llega a personas, no a plataformas."
   canonicalURL="/es"
   lang="es"
   hreflang={{ en: "/", es: "/es" }}
@@ -29,10 +28,6 @@ import Footer from "../../components/Footer.astro";
   <section id="top" class="hero">
     <div class="hero__grid">
       <div class="hero__left">
-        <div class="hero__badge">
-          <HeartIcon size={15} color="var(--tippal-heart)" />
-          La primera app hecha exclusivamente para la gratitud
-        </div>
         <h1 class="hero__title">
           Agradece a quienes<br />te alegran el día.
         </h1>
@@ -160,19 +155,6 @@ import Footer from "../../components/Footer.astro";
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
-  .hero__badge {
-    display: inline-flex;
-    align-self: flex-start;
-    align-items: center;
-    gap: 8px;
-    background: #fff;
-    border-radius: var(--tippal-radius-pill);
-    padding: 8px 16px;
-    box-shadow: var(--tippal-shadow-rest);
-    font-weight: 700;
-    font-size: 13.5px;
-    color: var(--tippal-accent);
   }
   .hero__title {
     margin: 0;
