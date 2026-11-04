@@ -41,7 +41,6 @@ accessibility problem.
 | `marquee` | The scrolling banner is an intentional brand motif. |
 | `cramped-padding` | Same banner: a marquee is edge-to-edge by definition. |
 | `nested-cards` | `.truth__industry` is a rounded block on the white section surface, not a card inside a card. |
-| `aphoristic-cadence` | "Gratitude is human. No pressure." is the product tagline. |
 
 Everything else stays on. In particular, keep `low-contrast`, `skipped-heading`,
 `undersized-ui-text` and `gray-on-color` active: they were all zero after the November 2026

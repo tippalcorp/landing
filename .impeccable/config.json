@@ -6,8 +6,7 @@
       "tight-leading",
       "cramped-padding",
       "nested-cards",
-      "marquee",
-      "aphoristic-cadence"
+      "marquee"
     ],
     "ignoreFiles": [],
     "ignoreValues": [
