@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Impeccable — platform engine binary is downloaded on demand by the launcher
+.opencode/skills/impeccable/scripts/bin/
+# Local AI runtime state
+.atl/

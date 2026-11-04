@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint:design": "astro build && .opencode/skills/impeccable/scripts/impeccable detect dist/"
   },
   "dependencies": {
     "astro": "^7.1.3"
