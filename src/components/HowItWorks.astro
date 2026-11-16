@@ -2,24 +2,24 @@
 const steps = [
   {
     num: "01",
-    title: "Add your card",
-    body: "Gratitude goes straight from your card — or from your balance once you receive appreciation. Nothing to pre-load.",
+    title: "Set up once",
+    body: "Create your account and add where you want tips to land. The download is free, and there's no terminal to buy.",
     chipBg: "var(--tippal-success-light)",
     chipFg: "var(--tippal-success-dark)",
     range: "entry 0% cover 25%",
   },
   {
     num: "02",
-    title: "Send gratitude",
-    body: "Pick a person, choose an amount, add a personal note, and pay with Tap to Pay. Tap send.",
+    title: "They just tap",
+    body: "Whoever is tipping holds their card, Apple Pay, or Google Pay to your phone. No app to install, no screen to hand over.",
     chipBg: "var(--tippal-heart-soft)",
     chipFg: "var(--tippal-heart)",
     range: "entry 0% cover 32%",
   },
   {
     num: "03",
-    title: "They get it instantly",
-    body: "Their balance grows with every gift received — they cash out whenever they like.",
+    title: "It's yours",
+    body: "Every tip lands in your balance, ready to cash out to your bank or card.",
     chipBg: "var(--tippal-primary-light)",
     chipFg: "var(--tippal-primary)",
     range: "entry 0% cover 40%",
@@ -30,8 +30,8 @@ const steps = [
 <section id="how" class="how">
   <div class="how__inner">
     <header class="how__header">
-      <h2 class="how__title">Three taps to thank you</h2>
-      <p class="how__sub">TipPal runs on their phone, so there's no terminal at the counter and no screen to hand over.</p>
+      <h2 class="how__title">Get thanked in three steps</h2>
+      <p class="how__sub">No terminal to buy, no screen to hand over, and nothing for them to download — they tap, you're thanked.</p>
     </header>
     <div class="how__cards">
       {steps.map((step, i) => (

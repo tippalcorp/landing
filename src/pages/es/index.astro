@@ -2,13 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StoreButton from "../../components/StoreButton.astro";
 import TapToPayHero from "../../components/TapToPayHero.astro";
+import AppDemo from "../../components/AppDemo.astro";
 import Footer from "../../components/Footer.astro";
 ---
 
 <!-- TODO: human review ES copy -->
 <BaseLayout
   title="TipPal — Agradece a quienes te alegran el día."
-  description="TipPal es la forma más fácil de enviar gratitud en persona con Tap to Pay. Se descarga gratis y cada regalo llega a personas, no a plataformas."
+  description="Recibe gratitud al instante en persona con Tap to Pay — quien te la da no necesita la app, solo su tarjeta o su teléfono."
   canonicalURL="/es"
   lang="es"
   hreflang={{ en: "/", es: "/es" }}
@@ -33,10 +34,10 @@ import Footer from "../../components/Footer.astro";
           Agradece a quienes<br />te alegran el día.
         </h1>
         <p class="hero__tagline">
-          Envía y recibe gratitud en persona con <span class="hero__tagline-accent">Tap to Pay</span>.
+          Recibe gratitud al instante en persona con <span class="hero__tagline-accent">Tap to Pay</span>.
         </p>
         <p class="hero__desc">
-          TipPal es la forma más fácil de enviar gratitud en persona — con Apple Pay, Google Pay, TipPal ID (@email), códigos QR, Tap to Pay y más formas de conectar.
+          TipPal es la forma más fácil de recibir gratitud en persona — y quien te la da no necesita la app: le basta su tarjeta o su teléfono. Con Apple Pay, Google Pay o Tap to Pay, el pago llega al instante.
         </p>
         <div class="hero__stores">
           <StoreButton store="apple" href="https://apps.apple.com/us/app/tippal/id6806428593" />
@@ -53,25 +54,44 @@ import Footer from "../../components/Footer.astro";
 
   <!-- How it works -->
   <section id="como" class="how">
-    <h2 class="how__title">Cómo funciona</h2>
+    <h2 class="how__title">Cómo te agradecen</h2>
     <div class="how__grid">
       <div class="how__step">
         <span class="how__num">1</span>
-        <h3>Abre TipPal</h3>
-        <p>Inicia la app y elige a quién quieres agradecer.</p>
+        <h3>Prepara tu cuenta</h3>
+        <p>Crea tu cuenta e indica dónde quieres recibir tus tips. La descarga es gratis y no hay terminal que comprar.</p>
       </div>
       <div class="how__step">
         <span class="how__num">2</span>
-        <h3>Toca para pagar</h3>
-        <p>Acerca tu teléfono y envía tu regalo con Tap to Pay.</p>
+        <h3>Solo tocan</h3>
+        <p>Quien te da el tip acerca su tarjeta, Apple Pay o Google Pay a tu teléfono. Sin app que instalar y sin pantalla que entregar.</p>
       </div>
       <div class="how__step">
         <span class="how__num">3</span>
-        <h3>Gratitud entregada</h3>
-        <p>La persona recibe tu agradecimiento de forma directa y transparente.</p>
+        <h3>Es tuyo</h3>
+        <p>Cada tip cae en tu saldo, listo para retirarlo a tu banco o tarjeta.</p>
       </div>
     </div>
   </section>
+
+  <!-- Demo -->
+  <AppDemo
+    title="Hecha para las gracias"
+    tapTitle="Tap to Pay, en persona"
+    tapDesc="Acercan su teléfono al tuyo y listo — sin app de su lado. Apple Pay, Google Pay o una tarjeta. Y si ya tienen TipPal, un TipPal ID o un código QR también funciona."
+    joinTitle="Solo un email para entrar"
+    joinDesc="Regístrate con tu email y empieza a recibir gratitud de inmediato. Toma alrededor de un minuto."
+    activityLabel="Actividad reciente"
+    balanceCaption="Gratitud recibida"
+    withdrawLabel="Retirar"
+    sentLabel="gratitud enviada"
+    receivedLabel="gratitud recibida"
+    transactions={[
+      { type: "tip_sent", amount: "$5.00", name: "Maya R.", note: "El mejor café con leche de la ciudad", date: "Hoy, 2:14 PM" },
+      { type: "tip_received", amount: "+$12.00", name: "Carlos R.", note: "Gracias por el viaje", date: "Hoy, 11:02 AM" },
+      { type: "tip_received", amount: "+$8.00", name: "Ana P.", note: "La habitación quedó impecable", date: "Ayer" },
+    ]}
+  />
 
   <!-- Manifesto -->
   <section id="por-que" class="manifesto">

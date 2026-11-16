@@ -1,13 +1,53 @@
 ---
 import BalanceCard from "./BalanceCard.astro";
 import TransactionItem from "./TransactionItem.astro";
+
+export interface Props {
+  title?: string;
+  tapTitle?: string;
+  tapDesc?: string;
+  joinTitle?: string;
+  joinDesc?: string;
+  activityLabel?: string;
+  balance?: string;
+  balanceCaption?: string;
+  withdrawLabel?: string;
+  sentLabel?: string;
+  receivedLabel?: string;
+  transactions?: {
+    type: "tip_sent" | "tip_received";
+    amount: string;
+    name: string;
+    note: string;
+    date: string;
+  }[];
+}
+
+const {
+  title = "Made for thank-yous",
+  tapTitle = "Tap to Pay, in person",
+  tapDesc = "They tap their phone to yours and it's done — no app on their side. Apple Pay, Google Pay, or a card. If they do have TipPal, a TipPal ID or QR code works too.",
+  joinTitle = "Just an email to join",
+  joinDesc = "Sign up with your email and start receiving appreciation right away. It takes about a minute.",
+  activityLabel = "Recent activity",
+  balance = "$128.50",
+  balanceCaption = "Gratitude received",
+  withdrawLabel = "Withdraw",
+  sentLabel = "gratitude sent",
+  receivedLabel = "gratitude received",
+  transactions = [
+    { type: "tip_sent", amount: "$5.00", name: "Maya R.", note: "Best latte in town", date: "Today, 2:14 PM" },
+    { type: "tip_received", amount: "+$12.00", name: "Carlos R.", note: "Thanks for the ride", date: "Today, 11:02 AM" },
+    { type: "tip_received", amount: "+$8.00", name: "Ana P.", note: "Room was spotless", date: "Yesterday" },
+  ],
+} = Astro.props;
 ---
 
 <section class="demo">
   <div class="demo__grid">
     <!-- Left column -->
     <div class="demo__left">
-      <h2 class="demo__title">Made for thank-yous</h2>
+      <h2 class="demo__title">{title}</h2>
 
       <div class="demo__card">
         <div class="demo__feature">
@@ -18,9 +58,9 @@ import TransactionItem from "./TransactionItem.astro";
                 <path d="M10.5 6.5a11 11 0 0 1 0 11" />
                 <path d="M14.5 4.5a14.5 14.5 0 0 1 0 15" />
               </svg>
-              Tap to Pay, in person
+              {tapTitle}
             </div>
-            <div class="demo__feature-desc">Tap your phone to theirs and your gratitude is on its way with Tap to Pay. Apple Pay, Google Pay, TipPal ID, QR codes — however you connect.</div>
+            <div class="demo__feature-desc">{tapDesc}</div>
           </div>
         </div>
       </div>
@@ -33,9 +73,9 @@ import TransactionItem from "./TransactionItem.astro";
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="m3.5 7 8.5 6 8.5-6" />
               </svg>
-              Just an email to join
+              {joinTitle}
             </div>
-            <div class="demo__feature-desc">Sign up with your email and start receiving appreciation right away. It takes about a minute.</div>
+            <div class="demo__feature-desc">{joinDesc}</div>
           </div>
         </div>
       </div>
@@ -47,13 +87,22 @@ import TransactionItem from "./TransactionItem.astro";
         <!-- Notch -->
         <div class="demo__notch"><span></span></div>
         <!-- Balance card -->
-        <BalanceCard balance="$128.50" />
+        <BalanceCard balance={balance} caption={balanceCaption} actionLabel={withdrawLabel} />
         <!-- Recent activity -->
         <div class="demo__activity">
-          <div class="demo__activity-label">Recent activity</div>
-          <TransactionItem type="tip_sent" amount="$5.00" name="Maya R." note="Best latte in town" date="Today, 2:14 PM" />
-          <TransactionItem type="tip_received" amount="+$12.00" name="Carlos R." note="Thanks for the ride" date="Today, 11:02 AM" />
-          <TransactionItem type="tip_received" amount="+$8.00" name="Ana P." note="Room was spotless" date="Yesterday" isLast />
+          <div class="demo__activity-label">{activityLabel}</div>
+          {transactions.map((tx, i) => (
+            <TransactionItem
+              type={tx.type}
+              amount={tx.amount}
+              name={tx.name}
+              note={tx.note}
+              date={tx.date}
+              isLast={i === transactions.length - 1}
+              sentLabel={sentLabel}
+              receivedLabel={receivedLabel}
+            />
+          ))}
         </div>
       </div>
     </div>

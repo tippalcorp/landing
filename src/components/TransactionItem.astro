@@ -6,9 +6,20 @@ export interface Props {
   note: string;
   date: string;
   isLast?: boolean;
+  sentLabel?: string;
+  receivedLabel?: string;
 }
 
-const { type, amount, name, note, date, isLast = false } = Astro.props;
+const {
+  type,
+  amount,
+  name,
+  note,
+  date,
+  isLast = false,
+  sentLabel = "gratitude sent",
+  receivedLabel = "gratitude received",
+} = Astro.props;
 const isSent = type === "tip_sent";
 
 const chipBg = isSent ? "var(--tippal-heart-soft)" : "var(--tippal-success-light)";
@@ -18,8 +29,8 @@ const amountColor = isSent ? "var(--tippal-accent)" : "var(--tippal-success-dark
 // Display-only label map. The prop identifier union (tip_sent|tip_received)
 // is preserved untouched; only the rendered caption uses gratitude terminology.
 const txLabels: Record<string, string> = {
-  tip_sent: "gratitude sent",
-  tip_received: "gratitude received",
+  tip_sent: sentLabel,
+  tip_received: receivedLabel,
 };
 const txLabel = txLabels[type] ?? "";
 ---
